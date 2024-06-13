@@ -1,15 +1,17 @@
 <div class = "panel panel-primary">
     <div class="panel-heading">
-        <h2>Employee List</h2>
+        <h2>User List</h2>
     </div>
     <div class = "penel-body">
-        <button type="button" class="btn btn-primary btn-lg">Add User</button>
+        <button (click)="open()" type="button" class="btn btn-primary btn-lg">Add User</button>
+        <app-add-user-modal [parentMethod]="getAll"></app-add-user-modal>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Full Name</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -20,8 +22,10 @@
                     <td>{{item.id}}</td>
                     <td>{{item.fullName}}</td>
                     <td>{{item.email}}</td>
+                    <td>{{item.role}}</td>
                     <td><button (click)="deleteUser(item.id)" class="btn btn-danger">Delete</button>
                         <button class="btn btn-info" style="margin-left: 10px">Details</button>
+                        <button class="btn btn-secondary" style="margin-left: 10px">Update</button>
                     </td>
                 </tr>
                 }

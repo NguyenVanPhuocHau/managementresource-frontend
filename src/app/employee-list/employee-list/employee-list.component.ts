@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from '../../employee/employee';
 import { EmployeeService } from '../../employee/employee.service';
 import { Router } from '@angular/router';
+import { AddUserModalComponent } from '../../modal/addUser-modal/add-user-modal/add-user-modal.component';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [],
+  imports: [AddUserModalComponent],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
 })
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
   // ];
 
   export class EmployeeListComponent implements OnInit {
+    @ViewChild(AddUserModalComponent) modal?: AddUserModalComponent
     datas:Employee[]=[];
 
     constructor(private employeeService: EmployeeService) { }
@@ -40,5 +42,9 @@ import { Router } from '@angular/router';
           this.getAll()
         },
         error => console.log(error));
+    }
+
+    open(){
+      this.modal?.openModal();
     }
   }
