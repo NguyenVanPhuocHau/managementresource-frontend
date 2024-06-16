@@ -28,6 +28,16 @@ export class EmployeeService {
     return this.httpClient.post(`${apiUrl}/addUser`, employee);
   }
 
+  getUserById(id: number):Observable<Employee[]>{
+    return this.httpClient.get<Employee[]>(`${apiUrl}/${id}`).pipe(
+    )
+  }
+  updateUser(updatedUser: Employee): Observable<any> {
+    return this.httpClient.put(`${apiUrl}/updateUser`, updatedUser);
+  }
+
+
+
 
 }
 

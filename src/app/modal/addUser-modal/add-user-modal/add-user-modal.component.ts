@@ -1,46 +1,69 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../../../employee/employee.service';
 import { Employee } from '../../../employee/employee';
+import { ExistingEmailsService } from '../../../existing-emails.service';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 // @ts-ignore
 const $: any = window['$']
 @Component({
   selector: 'app-add-user-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './add-user-modal.component.html',
   styleUrl: './add-user-modal.component.css'
 })
 export class AddUserModalComponent implements OnInit{
   @ViewChild('modal') modal?: ElementRef;
-  @Input() parentMethod!: () => void;
-
+  @Input() styleModal: string;
+  @Input() currentUser: any; 
+ // @Input() parentMethod!: () => void;
+  @Output() parentMethod = new EventEmitter<void>();
+  @Output() offUpdateMode = new EventEmitter<void>();
+  myForm: FormGroup = new FormGroup({
+    fullName: new FormControl(''),
+    email: new FormControl(''),
+    role: new FormControl(''),
+  });;
   openModal(){
     $(this.modal?.nativeElement).modal('show');
   }
 
   closeModal(){
     $(this.modal?.nativeElement).modal('hide');
+    // this.styleModal = "null"
   }
 
   closeModalAfterDelay(delay: number = 1000) {
     setTimeout(() => {
       this.closeModal();  
-      this.submitted = true;
+      // this.submitted = true;
     }, delay);
+    setTimeout(() => {
+      this.submitted = false;
+      this.chekform = false;
+    }, delay+300);
   }
 
   submitted = false;
+  chekform = false
   massage = true;
   employee: Employee = new Employee();
 
   constructor(private router: Router,
-    private employeeService: EmployeeService) { }
+    private employeeService: EmployeeService,private formBuilder: FormBuilder) {
+      
+     }
 
-  ngOnInit() {
-   
+  ngOnInit(): void{
+    this.myForm = this.formBuilder.group({
+      fullName: ['', Validators.required],
+      email: ['', Validators.required],
+      role: ['', Validators.required]
+    });
   }
 
   newEmployee(): void {
@@ -50,20 +73,71 @@ export class AddUserModalComponent implements OnInit{
 
   save() {
     this.employeeService.createEmployee(this.employee)
-      .subscribe(data => {console.log(data);this.parentMethod;  this.closeModalAfterDelay()}, error => console.log(error));
+      .subscribe(data => {console.log(data);this.parentMethod.emit();  this.closeModalAfterDelay()}, error => console.log(error));
+     
     this.employee = new Employee();
+    this.chekform = false
+  }
 
+  update(id: number){
+    this.employeeService.updateUser(this.currentUser)
+      .subscribe(data => {console.log(data);this.parentMethod.emit(); this.offUpdateMode.emit(); this.closeModalAfterDelay()}, error => console.log(error));
+      this.currentUser = new Employee();
     
+      
   }
 
   onSubmit() {
-    this.submitted = true;
-    this.save();   
-  
-  }
+    this.chekform = true;
+    console.log(this.myForm.valid)
+    if (this.myForm.valid) {
+     this.submitted = true
+      
+    if(this.styleModal == "update"){
+      this.update(this.currentUser.id);
+     
+    }else{
+      
+      this.save(); 
+    }
 
-  gotoList() {
-    this.router.navigate(['/employees']);
+    this.myForm.reset()
+    
   }
+ 
+}
+
+markFormGroupTouched(formGroup: FormGroup) {
+  Object.values(formGroup.controls).forEach(control => {
+    control.markAsTouched();
+
+    if (control instanceof FormGroup) {
+      this.markFormGroupTouched(control);
+    }
+  });
+} 
+
+get f(): { [key: string]: AbstractControl } {
+  return this.myForm.controls;
+}
+
+onReset(): void{
+  this.submitted = false;
+  this.myForm.reset();
+}
+
+// emailExistsValidator(): AsyncValidatorFn {
+//   return (control: AbstractControl): Observable<ValidationErrors | null> => {
+//     return this.existingEmailsService.checkEmail(control.value).pipe(
+//       map(exists => (exists ? { emailExists: true } : null)),
+//       catchError(() => of(null))
+//     );
+//   };
+// }
+
+
+  // gotoList() {
+  //   this.router.navigate(['/employees']);
+  // }
 
 }
