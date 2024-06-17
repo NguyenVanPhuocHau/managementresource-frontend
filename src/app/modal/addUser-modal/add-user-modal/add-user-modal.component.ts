@@ -7,6 +7,7 @@ import { Employee } from '../../../employee/employee';
 import { ExistingEmailsService } from '../../../existing-emails.service';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { Unit } from '../../../unit/unit';
 // @ts-ignore
 const $: any = window['$']
 @Component({
@@ -20,14 +21,15 @@ export class AddUserModalComponent implements OnInit{
   @ViewChild('modal') modal?: ElementRef;
   @Input() styleModal: string;
   @Input() currentUser: any; 
- // @Input() parentMethod!: () => void;
+  @Input() units: Unit[]; 
   @Output() parentMethod = new EventEmitter<void>();
   @Output() offUpdateMode = new EventEmitter<void>();
   myForm: FormGroup = new FormGroup({
     fullName: new FormControl(''),
     email: new FormControl(''),
     role: new FormControl(''),
-  });;
+    unitId: new FormControl('')
+  });
   openModal(){
     $(this.modal?.nativeElement).modal('show');
   }
@@ -46,6 +48,7 @@ export class AddUserModalComponent implements OnInit{
       this.submitted = false;
       this.chekform = false;
     }, delay+300);
+    
   }
 
   submitted = false;
@@ -59,10 +62,13 @@ export class AddUserModalComponent implements OnInit{
      }
 
   ngOnInit(): void{
+      console.log(this.employee)
     this.myForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       email: ['', Validators.required],
-      role: ['', Validators.required]
+      role: ['', Validators.required],
+      unitId: [37, Validators.required],
+     
     });
   }
 
@@ -72,14 +78,17 @@ export class AddUserModalComponent implements OnInit{
   }
 
   save() {
+    console.log(this.employee)
     this.employeeService.createEmployee(this.employee)
       .subscribe(data => {console.log(data);this.parentMethod.emit();  this.closeModalAfterDelay()}, error => console.log(error));
      
     this.employee = new Employee();
-    this.chekform = false
+    this.chekform = false;
+    
   }
 
   update(id: number){
+    console.log(this.currentUser)
     this.employeeService.updateUser(this.currentUser)
       .subscribe(data => {console.log(data);this.parentMethod.emit(); this.offUpdateMode.emit(); this.closeModalAfterDelay()}, error => console.log(error));
       this.currentUser = new Employee();
@@ -97,6 +106,8 @@ export class AddUserModalComponent implements OnInit{
       this.update(this.currentUser.id);
      
     }else{
+    
+      console.log(this.employee)
       
       this.save(); 
     }
@@ -126,6 +137,15 @@ onReset(): void{
   this.myForm.reset();
 }
 
+getUnitNameById(id: number): string {
+  const unit = this.units.find(u => u.id === id);
+  return unit ? unit.name : 'Unknown'; 
+}
+
+
+onUnitSelect(event: any) {
+ alert(event.target.value) // Lưu giá trị của select vào biến tạm
+}
 // emailExistsValidator(): AsyncValidatorFn {
 //   return (control: AbstractControl): Observable<ValidationErrors | null> => {
 //     return this.existingEmailsService.checkEmail(control.value).pipe(

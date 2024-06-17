@@ -36,6 +36,21 @@ export class EmployeeService {
     return this.httpClient.put(`${apiUrl}/updateUser`, updatedUser);
   }
 
+  
+  getUsersByIds(ids: number[]): Observable<any> {
+    return this.httpClient.post<any>(`${apiUrl}/getByIds`, ids);
+  }
+
+  getUserByUnitId(id: number): Observable<any> {
+    return this.httpClient.get<any>(`${apiUrl}/units/${id}`);
+  }
+
+  changeUnitofUser(idUser: number, idUnit: number): Observable<any> {
+    return this.httpClient.put<any>(`${apiUrl}/changeUnit`,{idUser, idUnit
+
+    })
+  }
+
 
 
 
