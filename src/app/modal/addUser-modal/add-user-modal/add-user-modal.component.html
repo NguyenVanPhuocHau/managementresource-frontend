@@ -4,12 +4,6 @@
   <div #modal class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <!-- <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div> -->
         <div class="modal-body">
             <h3 [hidden]="submitted">Create Employee</h3>
             <div [hidden]="submitted"  style="width: 400px;">
@@ -20,7 +14,7 @@
                 <!-- </div> -->
                   <label for="fullName">Full Name</label>
                   @if (styleModal == "update") {
-                    <input formControlName="fullName" type="text"  class="form-control" id="fullName" required [(ngModel)]="currentUser.fullName" name="fullName" [ngClass]="{ 'is-invalid': chekform && f['fullName'].errors }">
+                    <input *ngIf="currentUser" formControlName="fullName" type="text"  class="form-control" id="fullName" required [(ngModel)]="currentUser.fullName" name="fullName" [ngClass]="{ 'is-invalid': chekform && f['fullName'].errors }">
                   } 
                   @else if(styleModal == "detail"){
                     <p>{{currentUser?.fullName}}</p>
@@ -35,16 +29,12 @@
                       }
                     </div>
                     }
-                  
-                  <!-- <div *ngIf="myForm.get('fullName')?.invalid && (myForm.get('fullName')?.dirty || myForm.get('fullName')?.touched)">
-                    <div *ngIf="myForm.get('fullName')?.errors" style="color: red;">Full Name is required.</div>
-                  </div> -->
                 </div>
                 
                 <div class="form-group">
                   <label for="email">Email</label>
                   @if (styleModal == "update") {
-                    <input formControlName="email" type="text" class="form-control" id="email" required [(ngModel)]="currentUser.email" name="email">
+                    <input *ngIf="currentUser" formControlName="email" type="text" class="form-control" id="email" required [(ngModel)]="currentUser.email" name="email">
                   } 
                   @else if(styleModal == "detail"){
                     <p>{{currentUser?.email}}</p>
@@ -52,9 +42,7 @@
                   @else {
                     <input formControlName="email" type="email" class="form-control" id="email" required [(ngModel)]="employee.email" name="email"  [ngClass]="{ 'is-invalid': chekform && f['email'].errors }">
                   }
-                  <!-- <div *ngIf="myForm.get('email')?.invalid && (myForm.get('fullName')?.dirty || myForm.get('fullName')?.touched)">
-                    <div *ngIf="myForm.get('email')?.errors" style="color: red;">Email is required.</div>
-                  </div> -->
+                 
                   @if (chekform && f['email'].errors) {
                     <div class="invalid-feedback">
                       @if (f['email'].errors['required']) {
@@ -71,7 +59,7 @@
                     <label for="role">Role</label>
                     @if (styleModal == "update") {
                      
-                      <input formControlName="role" type="text" class="form-control" id="role" required [(ngModel)]="currentUser.role" name="role">
+                      <input *ngIf="currentUser" formControlName="role" type="text" class="form-control" id="role" required [(ngModel)]="currentUser.role" name="role">
                     } 
                     @else if (styleModal == "detail") {
                       <p>{{currentUser?.role}}</p>
@@ -79,9 +67,7 @@
                     @else {
                       <input formControlName="role" type="text" class="form-control" id="role" required [(ngModel)]="employee.role" name="role"  [ngClass]="{ 'is-invalid': chekform && f['role'].errors }">
                     }
-                    <!-- <div *ngIf="myForm.get('role')?.invalid && (myForm.get('fullName')?.dirty || myForm.get('fullName')?.touched)">
-                      <div *ngIf="myForm.get('role')?.errors" style="color: red;">Role is required.</div>
-                    </div> -->
+                  
                     @if (chekform && f['role'].errors) {
                       <div class="invalid-feedback">
                         @if (f['role'].errors['required']) {
@@ -89,12 +75,32 @@
                         }
                       </div>
                       }
+                  </div>
+                  <div class="form-group">
+                    <label for="unitId">Unit</label>
+                    @if (styleModal == "update") {
+                     
+                      <select *ngIf="currentUser" formControlName="unitId" class="form-control" id="unitId" name="unitId"  [(ngModel)]="currentUser.unitId"  [ngClass]="{ 'is-invalid': chekform && f['unitId'].errors }">
+                        <option *ngFor="let unit of units" [value]="unit.id" >{{ unit.name }}</option>
+                      </select>
+                    } 
+                    @else if (styleModal == "detail") {
+                      <p>{{getUnitNameById(currentUser.unitId)}}</p>
+                    }
+                    @else {
+                      <select formControlName="unitId" class="form-control" id="unitId" name="unitId"  [(ngModel)]="employee.unitId"  [ngClass]="{ 'is-invalid': chekform && f['unitId'].errors }">
+                        <option *ngFor="let unit of units" [value]="unit.id" >{{ unit.name }}</option>
+                      </select>
+                    }
+                  
+                   
+                      
                     
                   </div>
                   <div style="margin-top: 10px;">
                 <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 10px;">Close</button>
                 <button type="submit" *ngIf="styleModal === 'null'" class="btn btn-success">Submit</button>
-                <button type="submit"  *ngIf="styleModal === 'update'" class="btn btn-success">Update</button>
+                <button type="submit"   *ngIf="styleModal === 'update'" class="btn btn-success">Update</button>
               </div>
               </form>
             </div>

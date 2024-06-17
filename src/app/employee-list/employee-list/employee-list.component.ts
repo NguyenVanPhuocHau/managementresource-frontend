@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Employee } from '../../employee/employee';
 import { EmployeeService } from '../../employee/employee.service';
@@ -8,11 +8,14 @@ import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import DataTables, { Config } from 'datatables.net';
 import { ADTSettings } from 'angular-datatables/src/models/settings';
 import { CommonModule } from '@angular/common';
+import { Unit } from '../../unit/unit';
+import { UnitService } from '../../unit/unit.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [AddUserModalComponent, DataTablesModule, CommonModule],
+  imports: [AddUserModalComponent, DataTablesModule, CommonModule, FormsModule],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
 })
@@ -23,7 +26,8 @@ import { CommonModule } from '@angular/common';
   //   { id: 3, firstName: 'Michael', lastName: 'Johnson', emailId: 'michael.johnson@example.com', active: true }
   // ];
 
-  export class EmployeeListComponent implements OnInit {
+  export class EmployeeListComponent implements OnInit, OnDestroy, 
+  AfterViewInit{
     @ViewChild(AddUserModalComponent) modal?: AddUserModalComponent
     datas:Employee[]=[];
     dtoptions: DataTables.Settings = {};
@@ -32,43 +36,53 @@ import { CommonModule } from '@angular/common';
     styleModal: string = "null";
     isDetailMode: boolean = false;
     currentUser: null;
+    units:Unit[]=[]
 
-    constructor(private employeeService: EmployeeService) { }
+    constructor(private employeeService: EmployeeService, private unitService: UnitService) { }
   
     ngOnInit(): void {
       
       this.dtoptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
-        destroy: true, // Thêm tùy chọn này để cho phép hủy và khởi tạo lại DataTable,\
+        // destroy: true, // Thêm tùy chọn này để cho phép hủy và khởi tạo lại DataTable,\
+        processing: true,
+        responsive: true, 
+        destroy: true, // Hủy DataTables instance cũ khi khởi tạo lại
+        scrollY: '330px', // Chiều cao scroll
+        scrollCollapse: false, // Thu gọn scroll khi không đủ dữ liệu
         columns: [
-          { data: 'id' },
-          { data: 'fullName' },
-          { data: 'email' },
-          { data: 'role' },
-          // { orderable: false, searchable: false, defaultContent: '' }
-          {
-            data: null,
-            defaultContent: `
-              <button id="hau" class="btn btn-danger">Delete</button>
-             
-            `,
-            orderable: false
-          }
-        ]
+          {  width: '2%', data: 'id' },
+          {  width: '28%',data: 'fullName' },
+          { width: '20%',data: 'email' },
+          { width: '10%',data: 'role' },
+          {  width: '10%'},
+          {  width: '20%'},
+        ],
+
+        
+       
+  
       };
 
-      drawCallback: (settings) => {
-        // Lấy tham chiếu đến DataTable
-        const api = new $.fn.dataTable.Api(settings);
-        // Thêm sự kiện click cho button
-        $('#userListTable tbody').on('click', 'button.btn-danger', function() {
-          alert("Button clicked!");
-        });
-      }
+
+
+      // drawCallback: (settings) => {
+      //   // Lấy tham chiếu đến DataTable
+      //   const api = new $.fn.dataTable.Api(settings);
+      //   // Thêm sự kiện click cho button
+      //   $('#userListTable tbody').on('click', 'button.btn-danger', function() {
+      //     alert("Button clicked!");
+      //   });
+      // }
   
    
       this.getAll();
+      this.getAllUnits();
+    }
+
+    ngAfterViewInit(): void {
+      // this.dtTrigger.next(null);
     }
 
     ngOnDestroy(): void {
@@ -77,25 +91,34 @@ import { CommonModule } from '@angular/common';
 
     getAll2(){
       this.employeeService.getAll().subscribe((res:any)=>{
+      
         this.datas = res;
-    
+        this.refreshTable();
+        // this.dtTrigger.next(null);
       })
     }
   
     getAll(){
       this.employeeService.getAll().subscribe((res:any)=>{
         this.datas = res;
-      this.dtTrigger.next(null); // Thông báo DataTables để khởi tạo với dữ liệu mới
-      // this.updateDisplayedData();
+        console.log(this.datas)
+        this.dtTrigger.next(null); 
       })
     }
+    getAllUnits(){
+      this.unitService.getAllUnit().subscribe((res:any)=>{
+        this.units = res;
+        
+      })
+    }
+
     deleteUser(id: number){
       this.employeeService.deleteEmployee(id)
       .subscribe(
         data => {
         
-          this.datas = this.datas.filter(item => item.id !== id); // Xóa hàng khỏi dữ liệu
-          this.refreshTable()
+          // this.datas = this.datas.filter(item => item.id !== id); // Xóa hàng khỏi dữ liệu
+          this.getAll2()
         
         },
         error => console.log(error));
@@ -136,6 +159,19 @@ import { CommonModule } from '@angular/common';
      this.styleModal = "null";
    
     }
+   
+    onSelectChange(event: any, idUser: number) {
+      const selectedUnitId = event.target.value;
+     
+      this.employeeService.changeUnitofUser(idUser,selectedUnitId).subscribe((res:any) =>{
+        this.getAll2()
+      }
+
+      )
+
+      
+    }
+
 
  
 
@@ -148,27 +184,28 @@ import { CommonModule } from '@angular/common';
     }
 
     
-    refreshTable(): void {
-      const table = $('#userListTable').DataTable();
-      table.clear();
-      table.rows.add(this.datas)
-      table.draw();
+  refreshTable(delay: number = 1000): void {
+    
+    const table = $('#userListTable').DataTable();
+    // // table.clear();
+    // // table.rows.add(this.datas);
+    // // table.draw();
+    // table.clear()
+    table.destroy()
+    this.dtTrigger.next(null)
+    // console.log(this.datas);
+    // table.rows.add(this.datas).draw(false); // Add new data
+    // table.columns.adjust().draw(false);
+  }
+
+    refreshTable2() {
+      
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.clear().rows.add(this.datas).draw();
+      });
     }
 
-    
 
-    //  adjustedData = this.datas.map(item => {
-    //   return {
-    //     id: item.id,
-    //     fullName: item.fullName,
-    //     email: item.email,
-    //     role: item.role,
-    //     // Nếu có các dữ liệu khác cần được thêm vào
-    //     additionalData: '...',
-    //     // Hoặc bạn có thể bỏ qua cột Actions nếu không cần thiết
-    //   };
-    // });
-    
    
    
   }
