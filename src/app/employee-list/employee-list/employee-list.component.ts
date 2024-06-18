@@ -52,12 +52,12 @@ import { FormsModule } from '@angular/forms';
         scrollY: '330px', // Chiều cao scroll
         scrollCollapse: false, // Thu gọn scroll khi không đủ dữ liệu
         columns: [
-          {  width: '2%', data: 'id' },
-          {  width: '28%',data: 'fullName' },
-          { width: '20%',data: 'email' },
-          { width: '10%',data: 'role' },
-          {  width: '10%'},
-          {  width: '20%'},
+          {   data: 'id' },
+          {  data: 'fullName' },
+          { data: 'email' },
+          { data: 'role' },
+          {  },
+          {  },
         ],
 
         

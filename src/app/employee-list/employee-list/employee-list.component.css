@@ -1,73 +1,72 @@
-.blulecoloer {
-    color: rebeccapurple;
+.panel {
+   
+    margin: 50px; /* Để căn giữa panel theo chiều ngang */
+    max-height: 600px; /* Chiều cao tối đa của panel */
+    overflow-y: auto; /* Hiển thị thanh cuộn khi nội dung vượt quá chiều cao */
 }
 
-/* Thêm hiệu ứng hover cho các hàng của bảng */
-#userListTable tbody tr:hover td {
-    background-color: #e9ecef !important; /* Thay đổi màu nền */
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ
-    /* transform: scale(1.02); Tăng kích thước nhẹ */
-    cursor: pointer; /* Thêm con trỏ chuột dạng pointer khi hover */
-    transition: all 0.2s ease-in-out; /* Thêm hiệu ứng chuyển động mượt */
+.datatable {
+    margin-top: 20px; /* Khoảng cách từ đỉnh panel đến bảng */
 }
 
-/* Thêm màu nền xanh cho bảng và các tiêu đề */
-.table.blulecoloer thead tr th{
-    background-color: #007bff; /* Màu xanh của Bootstrap */
-    color: #fff; /* Màu chữ trắng */
-}
-.padding20x{
-    padding: 20px;
-}
-
-/* Định dạng bảng DataTables */
 #userListTable {
-    width: 100%; /* Thiết lập bảng chiếm toàn bộ chiều rộng của phần tử cha */
-    border-collapse: collapse; /* Xóa khoảng cách giữa các ô */
-  }
-  
-  /* Định dạng các ô đầu tiên của từng hàng */
-  table th {
-    background-color: #f2f2f2; /* Màu nền cho các ô đầu tiên */
-    padding: 8px; /* Đệm cho các ô */
-    text-align: left; /* Căn lề trái cho văn bản trong ô */
-    border: 1px solid #ddd; /* Đường viền cho các ô */
-  }
-  
-  /* Định dạng các ô dữ liệu */
-  table td {
-    padding: 8px; /* Đệm cho các ô */
-    text-align: left; /* Căn lề trái cho văn bản trong ô */
-    border: 1px solid #ddd; /* Đường viền cho các ô */
-  }
-  
-  /* Định dạng cho hàng chẵn */
-  table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Màu nền cho các hàng chẵn */
-  }
-  
-  /* Định dạng cho hàng lẻ */
-  table tr:nth-child(odd) {
-    background-color: #ffffff; /* Màu nền cho các hàng lẻ */
-  }
-  
-table tbody tr td:last-child {
-    text-align: center; /* Căn giữa nội dung của cột cuối cùng theo chiều ngang */
-  }
+    width: 100%; /* Bảng chiếm toàn bộ chiều rộng của panel */
+    table-layout: fixed; /* Đảm bảo bảng có chiều rộng cố định */
+}
 
-  .table {
-    
-    overflow: hidden; /* Tự động hiển thị thanh cuộn khi nội dung vượt quá chiều cao */
-  }
-  table .dataTables_scrollBody {
-    overflow-y: hidden !important; /* Ẩn thanh cuộn dọc */
-  }
-  
-  .dataTables_scrollBody::-webkit-scrollbar {
-    display: none; /* Ẩn thanh cuộn của trình duyệt Chrome/Safari */
-  }
-  
-  .dataTables_scrollBody {
-    -ms-overflow-style: none; /* Ẩn thanh cuộn của trình duyệt Edge/IE */
-  }
-  
+.table {
+    margin-bottom: 0; /* Xóa khoảng cách dư thừa dưới bảng */
+}
+
+.panel-heading {
+    text-align: center; /* Căn giữa nội dung trong panel heading */
+}
+
+#userListTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#userListTable th,
+#userListTable td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.actions-container {
+  display: flex; /* Sử dụng flexbox để các phần tử tự động xuống dòng khi không đủ không gian */
+  flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không có đủ không gian */
+}
+
+.actions-container button {
+  margin: 5px; /* Khoảng cách giữa các nút */
+}
+
+.table-responsive {
+  overflow-x: auto; /* Hiển thị thanh cuộn ngang khi cần thiết */
+}
+
+#userListTable {
+  width: 100%; /* Chiều rộng của bảng */
+  border-collapse: collapse; /* Đảm bảo viền của bảng được gộp lại */
+}
+
+#userListTable th,
+#userListTable td {
+  padding: 8px; /* Khoảng cách giữa nội dung và viền của các ô */
+  text-align: center; /* Căn giữa nội dung trong từng ô */
+  border: 1px solid #ddd; /* Đường viền của từng ô */
+  white-space: nowrap; /* Ngăn không cho nội dung bên trong ô bị tràn ra ngoài */
+  overflow: hidden; /* Ẩn nội dung bị tràn ra ngoài */
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm (...) khi nội dung bị tràn ra ngoài */
+}
+
+.actions-container {
+  display: flex; /* Sử dụng flexbox để các phần tử tự động xuống dòng khi không đủ không gian */
+  flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không có đủ không gian */
+}
+
+.actions-container button {
+  margin: 5px; /* Khoảng cách giữa các nút */
+}
