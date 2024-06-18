@@ -62,12 +62,12 @@ export class AddUserModalComponent implements OnInit{
      }
 
   ngOnInit(): void{
-      console.log(this.employee)
+  
     this.myForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       email: ['', Validators.required],
       role: ['', Validators.required],
-      unitId: [37, Validators.required],
+      unitId: ['', Validators.required],
      
     });
   }

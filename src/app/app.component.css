@@ -1,0 +1,40 @@
+.bg-blue{
+    background: #1f7ed0;
+}
+
+ul li{
+    color: white;
+}
+
+.nav{
+    width: 100%;
+}
+
+.nav li{
+    width: 100%;
+}
+
+.nav-link{
+    color: white;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px; /* Thêm khoảng cách bên trong */
+  display: block; /* Đảm bảo liên kết chiếm toàn bộ không gian của mục menu */
+  margin-bottom: 5px; /* Thêm khoảng cách giữa các mục menu */
+  border-radius: 5px; /* Thêm góc bo tròn */
+  background-color: #1f7ed0; /* Màu nền cho các mục menu */
+  border: 3px solid rgba(255, 255, 255, 0.1); /* Thêm viền nhạt giữa các mục menu */
+  font-weight: 500; /* Đặt trọng lượng font chữ để trông đẹp hơn */
+}
+
+.nav-link:hover {
+  background-color: #105a8d; /* Màu nền khi hover */
+  color: white; /* Màu chữ khi hover */
+}
+
+.nav-link.active {
+  background-color: #105a8d; /* Màu nền cho menu được chọn */
+}
