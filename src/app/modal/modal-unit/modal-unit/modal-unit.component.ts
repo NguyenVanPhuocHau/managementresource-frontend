@@ -6,6 +6,7 @@ import { EmployeeService } from '../../../employee/employee.service';
 import { Employee } from '../../../employee/employee';
 import { UnitService } from '../../../unit/unit.service';
 import { Unit } from '../../../unit/unit';
+import { ExistingEmailsService } from '../../../email-service/existing-emails.service';
 
 // @ts-ignore
 const $: any = window['$']
@@ -32,10 +33,13 @@ export class ModalUnitComponent implements OnInit{
   });;
   openModal(){
     $(this.modal?.nativeElement).modal('show');
+    this.chekform = false
+    this.myForm.reset()
   }
 
   closeModal(){
     $(this.modal?.nativeElement).modal('hide');
+
    
   }
 
@@ -55,13 +59,17 @@ export class ModalUnitComponent implements OnInit{
   unit: Unit = new Unit();
 
   constructor(private router: Router,
-    private unitservice: UnitService,private formBuilder: FormBuilder, private userService: EmployeeService) {
+    private unitservice: UnitService,private formBuilder: FormBuilder, private userService: EmployeeService, private exitEmailService: ExistingEmailsService) {
       
      }
 
   ngOnInit(): void{
     this.myForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', 
+        {validators: [Validators.required],
+          asyncValidators: [this.exitEmailService.validateNameUnit()],
+          updateOn: 'blur'}
+      ],
       description: ['', Validators.required]
     });
     

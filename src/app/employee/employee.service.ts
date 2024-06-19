@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable,of} from 'rxjs';
+import {Observable,catchError,map,of} from 'rxjs';
 import { Employee } from './employee';
 
 
@@ -19,6 +19,11 @@ export class EmployeeService {
   getAll():Observable<Employee[]>{
     return this.httpClient.get<Employee[]>(apiUrl).pipe(
     )
+  }
+  checkEmail(email: string): Observable<boolean> {
+    return this.httpClient.get<{ email: string }[]>(`${apiUrl}`).pipe(
+      map(users => users.some(user => user.email === email))
+    );
   }
   deleteEmployee(id: number): Observable<any>{
     return this.httpClient.delete(`${apiUrl}/deleteUser/${id}`, { responseType: 'text' })

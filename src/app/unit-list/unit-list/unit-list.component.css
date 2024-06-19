@@ -33,7 +33,9 @@
 }
 
 .pagination {
+  margin-top: 10px;
     display: inline-block;
+    position: fixed;
   }
   
   .pagination a {
@@ -58,6 +60,7 @@
 
 .datatable {
     margin-top: 20px; /* Khoảng cách từ đỉnh panel đến bảng */
+
 }
 
 #userListTable {
@@ -68,7 +71,10 @@
 .table {
     margin-bottom: 0; /* Xóa khoảng cách dư thừa dưới bảng */
 }
-
+.table-wrapper {
+  max-height: 330px; /* Chiều cao cố định cho bảng */
+  overflow-y: auto; /* Tính năng cuộn dọc */
+}
 .panel-heading {
     text-align: center; /* Căn giữa nội dung trong panel heading */
 }
@@ -135,5 +141,85 @@
 }
 
 #userListTable .btn {
-    padding: 0.25rem 0.5rem; /* Điều chỉnh khoảng cách lề và độ dày của các nút */
+    /*padding: 0.25rem 0.5rem; /* Điều chỉnh khoảng cách lề và độ dày của các nút */
+}
+
+/*màu 
+.blulecoloer {
+    color: rebeccapurple;
+}
+
+/* Thêm hiệu ứng hover cho các hàng của bảng */
+#userListTable tbody tr:hover td {
+  background-color: #e9ecef !important; /* Thay đổi màu nền */
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ
+  /* transform: scale(1.02); Tăng kích thước nhẹ */
+  cursor: pointer; /* Thêm con trỏ chuột dạng pointer khi hover */
+  transition: all 0.2s ease-in-out; /* Thêm hiệu ứng chuyển động mượt */
+}
+
+/* Thêm màu nền xanh cho bảng và các tiêu đề */
+.table.blulecoloer thead tr th{
+  background-color: #007bff; /* Màu xanh của Bootstrap */
+  color: #fff; /* Màu chữ trắng */
+}
+.padding20x{
+  padding: 20px;
+}
+
+/* Định dạng bảng DataTables */
+#userListTable {
+  width: 100%; /* Thiết lập bảng chiếm toàn bộ chiều rộng của phần tử cha */
+  border-collapse: collapse; /* Xóa khoảng cách giữa các ô */
+}
+
+/* Định dạng các ô đầu tiên của từng hàng */
+table th {
+  background-color: #f2f2f2; /* Màu nền cho các ô đầu tiên */
+  padding: 8px; /* Đệm cho các ô */
+  text-align: left; /* Căn lề trái cho văn bản trong ô */
+  border: 1px solid #ddd; /* Đường viền cho các ô */
+}
+
+/* Định dạng các ô dữ liệu */
+table td {
+  padding: 8px; /* Đệm cho các ô */
+  text-align: left; /* Căn lề trái cho văn bản trong ô */
+  border: 1px solid #ddd; /* Đường viền cho các ô */
+}
+
+/* Định dạng cho hàng chẵn */
+table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Màu nền cho các hàng chẵn */
+}
+
+/* Định dạng cho hàng lẻ */
+table tr:nth-child(odd) {
+  background-color: #ffffff; /* Màu nền cho các hàng lẻ */
+}
+
+table tbody tr td:last-child {
+  text-align: center; /* Căn giữa nội dung của cột cuối cùng theo chiều ngang */
+}
+
+.table {
+  
+  overflow: hidden; /* Tự động hiển thị thanh cuộn khi nội dung vượt quá chiều cao */
+}
+table .dataTables_scrollBody {
+  overflow-y: hidden !important; /* Ẩn thanh cuộn dọc */
+}
+
+.dataTables_scrollBody::-webkit-scrollbar {
+  display: none; /* Ẩn thanh cuộn của trình duyệt Chrome/Safari */
+}
+
+.dataTables_scrollBody {
+  -ms-overflow-style: none; /* Ẩn thanh cuộn của trình duyệt Edge/IE */
+}
+
+
+.btn-action{
+  font-size: 14px;
+  font-weight: 500;
 }
