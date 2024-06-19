@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable,of} from 'rxjs';
+import {Observable,map,of} from 'rxjs';
 import { Unit } from './unit';
 
 
@@ -23,7 +23,11 @@ export class UnitService {
     };
     return this.httpClient.get<any>(`${apiUrl}/pages`, { params });
   }
-
+  checkUnitName(name: string): Observable<boolean> {
+    return this.httpClient.get<{ name: string }[]>(`${apiUrl}`).pipe(
+      map(units => units.some(unit => unit.name === name))
+    );
+  }
 
   createUnit(unit: Object): Observable<Object> {
     return this.httpClient.post(`${apiUrl}/createUnit`, unit);

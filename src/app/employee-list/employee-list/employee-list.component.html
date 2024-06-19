@@ -1,24 +1,23 @@
 <div class = "panel panel-primary">
     <div class="panel-heading">
-        <h2>User List</h2>
+        <h2>Danh sách người dùng</h2>
     </div>
     <div  class="datatable">
-        <button (click)="add()" type="button" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Add User</button>
+        <button (click)="add()" type="button" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Thêm User</button>
         <app-add-user-modal (parentMethod)="getAll2()" (refreshTable)="refreshTable2()" (offUpdateMode)="offUpdateMode()" [styleModal]="styleModal"  [currentUser]="currentUser" [units]="units"></app-add-user-modal>
         <table id="userListTable" datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger"   class="table table-striped blulecoloer">
             <thead>
                 <tr class="blulecoloer">
                     <th>ID</th>
-                    <th>Full Name</th>
+                    <th>Họ và Tên</th>
                     <th>Email</th>
-                    <th>Role</th>
-                    <th>unit</th>
+                    <th>Vai trò</th>
+                    <th>Đơn vị</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- *ngFor="let item of datas; let i = index;" [attr.id]="'row-' + item.id" index=i -->
-                <!-- @for (item of datas; track $index; ) { -->
+               
                 <tr  *ngFor="let item of datas; let i = index;" [attr.id]="'row-' + item.id" index=i>
                     <td>{{item.id}}</td>
                     <td>{{item.fullName}}</td>
@@ -29,15 +28,16 @@
                         <option *ngFor="let unit of units"  [value]="unit.id" [selected]="unit.id === item.unitId">
                           {{ unit.name }}
                         </option>
+                       
                       </select>
                     </td>
                     <td>  
-                        <button class="btn btn-danger" (click)="deleteUser(item.id)">Delete</button>
-                        <button class="btn btn-info" (click)="detail(item.id)" style="margin-left: 10px">Details</button>
-                        <button class="btn btn-secondary" (click)="onUpdate(item.id)" style="margin-left: 10px">Update</button>
+                        <button class="btn btn-action btn-danger" (click)="deleteUser(item.id)">Delete</button>
+                        <button class="btn btn-action btn-info" (click)="detail(item.id)" style="margin-left: 10px">Details</button>
+                        <button class="btn btn-action btn-secondary" (click)="onUpdate(item.id)" style="margin-left: 10px">Update</button>
                       </td>
                 </tr>
-                <!-- } -->
+                
             </tbody>
         </table>
     </div>

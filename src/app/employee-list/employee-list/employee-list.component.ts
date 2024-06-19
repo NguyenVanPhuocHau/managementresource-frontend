@@ -45,44 +45,26 @@ import { FormsModule } from '@angular/forms';
       this.dtoptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
-        // destroy: true, // Thêm tùy chọn này để cho phép hủy và khởi tạo lại DataTable,\
         processing: true,
         responsive: true, 
-        destroy: true, // Hủy DataTables instance cũ khi khởi tạo lại
-        scrollY: '330px', // Chiều cao scroll
-        scrollCollapse: false, // Thu gọn scroll khi không đủ dữ liệu
+        destroy: true, 
+        scrollY: '330px', 
+        scrollCollapse: false, 
         columns: [
-          {   data: 'id' },
-          {  data: 'fullName' },
-          { data: 'email' },
-          { data: 'role' },
-          {  },
-          {  },
+          { width: "3%",  data: 'id' },
+          { width: "25%", data: 'fullName' },
+          { width: "27%",data: 'email' },
+          { width: "7%",data: 'role' },
+          { width: "15%", },
+          { width: "25%", },
         ],
-
-        
-       
-  
       };
-
-
-
-      // drawCallback: (settings) => {
-      //   // Lấy tham chiếu đến DataTable
-      //   const api = new $.fn.dataTable.Api(settings);
-      //   // Thêm sự kiện click cho button
-      //   $('#userListTable tbody').on('click', 'button.btn-danger', function() {
-      //     alert("Button clicked!");
-      //   });
-      // }
-  
-   
       this.getAll();
       this.getAllUnits();
     }
 
     ngAfterViewInit(): void {
-      // this.dtTrigger.next(null);
+      
     }
 
     ngOnDestroy(): void {
@@ -94,7 +76,7 @@ import { FormsModule } from '@angular/forms';
       
         this.datas = res;
         this.refreshTable();
-        // this.dtTrigger.next(null);
+        
       })
     }
   
@@ -117,7 +99,7 @@ import { FormsModule } from '@angular/forms';
       .subscribe(
         data => {
         
-          // this.datas = this.datas.filter(item => item.id !== id); // Xóa hàng khỏi dữ liệu
+         
           this.getAll2()
         
         },

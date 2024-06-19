@@ -1,9 +1,9 @@
 <div class = "panel panel-primary">
     <div class="panel-heading">
-        <h2 class="title">Unit List</h2>
+        <h2 class="title">Danh sách đơn vị</h2>
     </div>
     <div  class="datatable">
-        <button (click)="add()" type="button" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Create Unit</button>
+        <button (click)="add()" type="button" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Thêm đơn vị</button>
         <app-modal-unit (freshpage)="getAllUnits()" [styleModal]="styleModal" [currentUnit]="currentUnit" [listUser]="listUser"></app-modal-unit>
         <table id="userListTable" class="table table-striped blulecoloer">
             <thead>
@@ -22,9 +22,9 @@
                     <td>{{item.name}}</td>
                     <td>{{item.description}}</td>
                     <td>
-                        <button (click)="deleteUnit(item.id)" class="btn btn-danger">Delete</button>
-                        <button (click)="listUserOfUnit(item.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
-                        <button (click)="onUpdate(item.id)" class="btn btn-secondary" style="margin-left: 10px">Update</button>
+                        <button  [disabled]="item.id === 144"  (click)="deleteUnit(item.id)" class="btn btn-action btn-danger">Delete</button>
+                        <button (click)="listUserOfUnit(item.id)" class="btn btn-action btn-info" style="margin-left: 10px">Details</button>
+                        <button (click)="onUpdate(item.id)" class="btn btn-action btn-secondary" style="margin-left: 10px">Update</button>
                       </td>
                 </tr>
                 <!-- } -->
@@ -32,7 +32,6 @@
         </table>
         <div class="pagination">
             <a *ngIf="currentPage !== 1" (click)="changePage(currentPage - 1)">&laquo;</a>
-
             <a *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i+1 === currentPage" (click)="changePage(i+1)">{{i + 1}}</a>
             <a *ngIf="currentPage !== totalPages" (click)="changePage(currentPage + 1)">&raquo;</a>
           </div>

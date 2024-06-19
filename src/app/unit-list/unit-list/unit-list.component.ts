@@ -22,24 +22,44 @@ export class UnitListComponent implements OnInit{
   styleModal: string = "null";
   currentUnit: null;
   ngOnInit(): void {
+   
     this.getAllUnits();
+    
   }
 
   constructor(private unitService: UnitService, private userService: EmployeeService) { }
 
   getAllUnits(): void {
+   
     this.unitService.getAll(this.currentPage).subscribe((res: any) => {
       this.datas = res.content;
-      if(this.totalPages != res.totalPages && res.totalPages !=0){
+     
+      this.totalPages = res.totalPages;
+      
+    });
+    
+  }
+
+  loadAfterdetete(): void {
+   
+    this.unitService.getAll(this.currentPage).subscribe((res: any) => {
+      this.datas = res.content;
+      if(this.totalPages ! = res.totalPages){
         this.changePage(res.totalPages)
       }
       this.totalPages = res.totalPages;
-
+      
     });
+    
   }
+
+
+
+
 
   changePage(pageNo: number): void {
     this.currentPage = pageNo;
+   
     this.getAllUnits();
   }
 
@@ -57,7 +77,7 @@ export class UnitListComponent implements OnInit{
     this.unitService.deleteUnit(id)
     .subscribe(
       data => {
-        this.getAllUnits()
+        this.loadAfterdetete()
       },
       error => console.log(error));
   }

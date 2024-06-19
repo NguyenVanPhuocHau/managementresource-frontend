@@ -2,10 +2,18 @@
   
   <!-- Modal -->
   <div #modal class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog margin100" role="document">
       <div class="modal-content">
         <div class="modal-body">
-            <h3 [hidden]="submitted">Create Employee</h3>
+          @if (styleModal == "update") {
+            <h3 [hidden]="submitted">Cập nhật thông tin</h3>
+          } 
+          @else if(styleModal == "detail"){
+            <h3 [hidden]="submitted">thông tin chi tiết</h3>
+          }
+          @else {
+            <h3 [hidden]="submitted">thêm người đơn vị</h3>
+          }
             <div [hidden]="submitted"  style="width: 400px;">
               @if(styleModal == "detail"){
                 <ul>
@@ -20,7 +28,7 @@
                     <!-- <div hidden> -->
                     
                   <!-- </div> -->
-                    <label for="name">Name</label>
+                    <label for="name">Tên</label>
                     @if (styleModal == "update") {
                       <input *ngIf="currentUnit" formControlName="name" type="text"  class="form-control" id="name" required [(ngModel)]="currentUnit.name" name="name" [ngClass]="{ 'is-invalid': chekform && f['name'].errors }">
                     } 
@@ -33,15 +41,18 @@
                     @if (chekform && f['name'].errors) {
                       <div class="invalid-feedback">
                         @if (f['name'].errors['required']) {
-                        <div>Name is required</div>
+                        <div>Vui lòng điền tên</div>
                         }
+                        @if (f['name'].errors['nameExists']) {
+                          <div>Trùng tên</div>
+                          }
                       </div>
                       }
                   </div>
                   
                  
                   <div class="form-group">
-                      <label for="description">description</label>
+                      <label for="description">Mô tả</label>
                       @if (styleModal == "update") {
                        
                         <input *ngIf="currentUnit" formControlName="description" type="text" class="form-control" id="description" required [(ngModel)]="currentUnit.description" name="description">
@@ -56,7 +67,7 @@
                       @if (chekform && f['description'].errors) {
                         <div class="invalid-feedback">
                           @if (f['description'].errors['required']) {
-                          <div>description is required</div>
+                          <div>Vui long điền mô tả</div>
                           }
                         </div>
                         }
