@@ -4,6 +4,7 @@ import { UnitService } from '../../unit/unit.service';
 import { CommonModule } from '@angular/common';
 import { ModalUnitComponent } from '../../modal/modal-unit/modal-unit/modal-unit.component';
 import { EmployeeService } from '../../employee/employee.service';
+import { AuthService } from '../../authService/authServcie';
 
 @Component({
   selector: 'app-unit-list',
@@ -21,13 +22,23 @@ export class UnitListComponent implements OnInit{
   currentPage: number = 1;
   styleModal: string = "null";
   currentUnit: null;
+  canDelete: boolean;
+  canEdit: boolean;
+  canAdd: boolean;
   ngOnInit(): void {
    
     this.getAllUnits();
-    
+    this.canDelete = this.hasPermission('REMOVE_UNIT');
+    this.canEdit = this.hasPermission('EDIT_UNIT');
+    this.canAdd = this.hasPermission('ADD_UNIT');
   }
 
-  constructor(private unitService: UnitService, private userService: EmployeeService) { }
+  hasPermission(permiss: string): boolean {
+    const permissions = this.authService.getLoginResponse()?.permissions;
+  return permissions ? permissions.includes(permiss) : false;
+  }
+
+  constructor(private authService: AuthService,private unitService: UnitService, private userService: EmployeeService) { }
 
   getAllUnits(): void {
    

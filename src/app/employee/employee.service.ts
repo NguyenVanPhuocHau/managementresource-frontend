@@ -34,7 +34,7 @@ export class EmployeeService {
   }
 
   getUserById(id: number):Observable<Employee[]>{
-    return this.httpClient.get<Employee[]>(`${apiUrl}/${id}`).pipe(
+    return this.httpClient.get<Employee[]>(`${apiUrl}/get/${id}`).pipe(
     )
   }
   updateUser(updatedUser: Employee): Observable<any> {

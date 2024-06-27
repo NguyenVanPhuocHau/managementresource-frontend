@@ -1,0 +1,42 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Màu nền phần nội dung */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.title h2 {
+    font-size: 3em;
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #0000ff, #ffffff); /* Gradient màu chữ ban đầu */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Ẩn màu văn bản gốc */
+    animation: moveBackground 4s infinite linear;
+}
+
+@keyframes moveBackground {
+    0% {
+        background: linear-gradient(to right, #0000ff, #ffffff); /* Màu xanh dương */
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+    50% {
+        background: linear-gradient(to right, #ffffff, #0000ff); /* Màu trắng */
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+    100% {
+        background: linear-gradient(to right, #0000ff, #ffffff); /* Màu xanh dương */
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+}

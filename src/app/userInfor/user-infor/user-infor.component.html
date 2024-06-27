@@ -1,0 +1,10 @@
+<div class="userInfor">
+    <div class="fullName">Họ và tên: {{userLogin.fullName}}</div>
+    <div class="email">Email: {{userLogin.email}}</div>
+    <div class="role">Vai trò: {{userLogin.role}}</div>
+    <div class="permissions">
+        <div class="permission" *ngFor="let p of userLogin.permissions">
+            {{p}}
+        </div>
+    </div>
+</div>

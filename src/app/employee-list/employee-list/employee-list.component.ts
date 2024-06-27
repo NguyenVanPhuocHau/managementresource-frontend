@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { Unit } from '../../unit/unit';
 import { UnitService } from '../../unit/unit.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../authService/authServcie';
 
 @Component({
   selector: 'app-employee-list',
@@ -35,13 +36,14 @@ import { FormsModule } from '@angular/forms';
     dttrigger:Subject<any>=new Subject<any>();
     styleModal: string = "null";
     isDetailMode: boolean = false;
-    currentUser: null;
+    currentUser: Employee = new Employee();
     units:Unit[]=[]
-
-    constructor(private employeeService: EmployeeService, private unitService: UnitService) { }
-  
+    
+    constructor(private authService: AuthService,private employeeService: EmployeeService, private unitService: UnitService) { }
+    canDelete: boolean;
+    canEdit: boolean;
+    canAdd: boolean;
     ngOnInit(): void {
-      
       this.dtoptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -52,15 +54,23 @@ import { FormsModule } from '@angular/forms';
         scrollCollapse: false, 
         columns: [
           { width: "3%",  data: 'id' },
-          { width: "25%", data: 'fullName' },
+          { width: "27%", data: 'fullName' },
           { width: "27%",data: 'email' },
-          { width: "7%",data: 'role' },
+          { width: "8%",data: 'role' },
           { width: "15%", },
-          { width: "25%", },
+          { width: "27%", },
         ],
       };
       this.getAll();
       this.getAllUnits();
+      this.canDelete = this.hasPermission('REMOVE_USER');
+      this.canEdit = this.hasPermission('EDIT_USER');
+      this.canAdd = this.hasPermission('ADD_USER');
+    }
+
+    hasPermission(permiss: string): boolean {
+      const permissions = this.authService.getLoginResponse()?.permissions;
+    return permissions ? permissions.includes(permiss) : false;
     }
 
     ngAfterViewInit(): void {
@@ -98,14 +108,9 @@ import { FormsModule } from '@angular/forms';
       this.employeeService.deleteEmployee(id)
       .subscribe(
         data => {
-        
-         
           this.getAll2()
-        
         },
         error => console.log(error));
-      
-
     }
     dtElement!: DataTableDirective;
 

@@ -1,0 +1,26 @@
+<div class="form-container-wrapper">
+    <div class="form-container">
+        <h2>Custom Role</h2>
+        <form (ngSubmit)="onSubmit()" id="roleForm">
+            <label for="roleName">Role Name:</label>
+            <input type="text" id="roleName" name="roleName" [(ngModel)]="roleName" required>
+            <fieldset>
+                <legend>Permissions</legend>
+                <!-- These checkboxes should be dynamically generated based on your permissions array -->
+                <div class="checkbox-container">
+                    <div class="checkbox-container">
+                        <div *ngFor="let permission of permissions" class="list-perimission">
+                            <div class="permission-item">
+                                <input class="checkbox-per" type="checkbox" id="{{ permission.id }}" name="permission"
+                                    [value]="permission.id" [(ngModel)]="permissionStates[permission.id]">
+                                <label class="permission-name" for="{{ permission.id }}">{{ permission.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>

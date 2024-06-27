@@ -1,0 +1,37 @@
+<div class = "panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="title">Danh sách khách hàng</h2>
+    </div>
+    <div  class="datatable">
+        <button *ngIf="canAdd" (click)="add()" type="button" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Thêm khách hàng</button>
+        <app-add-customer-modal (freshpage)="getAllCustomer()" [styleModal]="styleModal" [currentCustomer]="currentCustomer" [listUser]="listUser"></app-add-customer-modal>
+        <table id="userListTable" class="table table-striped blulecoloer">
+            <thead>
+                <tr class="blulecoloer">
+                    <th class="" style="width: 4%;">ID</th>
+                    <th class="" style="width: 17%;">Tên</th>
+                    <th class="">Email</th>
+                    <th class="" style="width: 10%;">Phone</th>
+                    <th class="">Vấn đề</th>
+                    <th class="">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let item of datas| paginate: { itemsPerPage: 3, currentPage: page }; let i = index;" [attr.id]="'row-' + item.id" index=i>
+                    <td>{{item.id}}</td>
+                    <td>{{item.fullName}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.problem}}</td>
+                    <td>
+                        <button *ngIf="canDelete"  (click)="deleteUnit(item.id)" class="btn btn-action btn-danger">Delete</button>
+                        <button class="btn btn-action btn-info" style="margin-left: 10px">Details</button>
+                        <button *ngIf="canEdit" (click)="onUpdate(item.id)" class="btn btn-action btn-secondary" style="margin-left: 10px">Update</button>
+                      </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+    
+</div>
