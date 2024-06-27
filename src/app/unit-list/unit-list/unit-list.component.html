@@ -3,7 +3,7 @@
         <h2 class="title">Danh sách đơn vị</h2>
     </div>
     <div  class="datatable">
-        <button (click)="add()" type="button" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Thêm đơn vị</button>
+        <button *ngIf="canAdd" (click)="add()" type="button" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Thêm đơn vị</button>
         <app-modal-unit (freshpage)="getAllUnits()" [styleModal]="styleModal" [currentUnit]="currentUnit" [listUser]="listUser"></app-modal-unit>
         <table id="userListTable" class="table table-striped blulecoloer">
             <thead>
@@ -22,9 +22,9 @@
                     <td>{{item.name}}</td>
                     <td>{{item.description}}</td>
                     <td>
-                        <button  [disabled]="item.id === 144"  (click)="deleteUnit(item.id)" class="btn btn-action btn-danger">Delete</button>
+                        <button *ngIf="canDelete"  [disabled]="item.id === 150"  (click)="deleteUnit(item.id)" class="btn btn-action btn-danger">Delete</button>
                         <button (click)="listUserOfUnit(item.id)" class="btn btn-action btn-info" style="margin-left: 10px">Details</button>
-                        <button (click)="onUpdate(item.id)" class="btn btn-action btn-secondary" style="margin-left: 10px">Update</button>
+                        <button *ngIf="canEdit" (click)="onUpdate(item.id)" class="btn btn-action btn-secondary" style="margin-left: 10px">Update</button>
                       </td>
                 </tr>
                 <!-- } -->

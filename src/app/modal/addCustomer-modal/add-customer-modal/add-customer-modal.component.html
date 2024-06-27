@@ -1,0 +1,160 @@
+<!-- Modal -->
+<div #modal class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog margin100" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        @if (styleModal == "update") {
+        <h3 [hidden]="submitted">Cập nhật khách hàng</h3>
+        }
+        @else if(styleModal == "detail"){
+        <h3 [hidden]="submitted">thông tin khách hàng</h3>
+        }
+        @else {
+        <h3 [hidden]="submitted">thêm người khách hàng</h3>
+        }
+        <div [hidden]="submitted" style="width: 400px;">
+          @if(styleModal == "detail"){
+          <ul>
+            <li>
+              {{currentCustomer.id}} - {{currentCustomer.fullName }} - {{ currentCustomer.email}}
+            </li>
+          </ul>
+          }
+          @else if (styleModal == "update") {
+          <form [formGroup]="myUpdateForm" (ngSubmit)="onSubmitUpdate()">
+            <div class="form-group">
+              <label for="fullName">Tên</label>
+              <input *ngIf="currentCustomer" formControlName="fullName" type="text" class="form-control" id="fullName"
+                required [(ngModel)]="currentCustomer.fullName" name="fullName"
+                [ngClass]="{ 'is-invalid': chekform && f1['fullName'].errors }">
+              @if (chekform && f1['fullName'].errors) {
+              <div class="invalid-feedback">
+                @if (f1['fullName'].errors['required']) {
+                <div>Vui lòng điền tên</div>
+                }
+              </div>
+              }
+            </div>
+            <!-- phone -->
+            <label for="phone">Phone</label>
+
+            <input *ngIf="currentCustomer" formControlName="phone" type="number" class="form-control" id="phone"
+              required [(ngModel)]="currentCustomer.phone" name="phone"
+              [ngClass]="{ 'is-invalid': chekform && f1['phone'].errors }">
+            @if (chekform && f1['phone'].errors) {
+            <div class="invalid-feedback">
+              @if (f1['phone'].errors['required']) {
+              <div>Vui lòng điền phone</div>
+              }
+              @if (f1['phone'].errors['nameExists']) {
+              <div>Trùng phone</div>
+              }
+            </div>
+            }
+            <!-- vấn đề -->
+            <div class="form-group">
+              <label for="problem">Vấn đề</label>
+              <input *ngIf="currentCustomer" formControlName="problem" type="text" class="form-control" id="problem"
+                required [(ngModel)]="currentCustomer.problem" name="problem"
+                [ngClass]="{ 'is-invalid': chekform && f1['problem'].errors }">
+              @if (chekform && f1['problem'].errors) {
+              <div class="invalid-feedback">
+                @if (f1['problem'].errors['required']) {
+                <div>Vui long điền vấn đề</div>
+                }
+              </div>
+              }
+
+            </div>
+            <div style="margin-top: 10px;">
+              <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal"
+                style="margin-right: 10px;">Close</button>
+              <button type="submit" *ngIf="styleModal === 'update'" class="btn btn-success">Update</button>
+            </div>
+          </form>
+          }
+          @else {
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <!-- <div hidden> -->
+              <!-- </div> -->
+              <label for="fullName">Tên</label>
+              <input formControlName="fullName" type="text" class="form-control" id="fullName" required
+                [(ngModel)]="customer.fullName" name="fullName"
+                [ngClass]="{ 'is-invalid': chekform && f['fullName'].errors }">
+              @if (chekform && f['fullName'].errors) {
+              <div class="invalid-feedback">
+                @if (f['fullName'].errors['required']) {
+                <div>Vui lòng điền tên</div>
+                }
+              </div>
+              }
+            </div>
+
+            <!-- email -->
+            <label for="email">Email</label>
+
+
+            <input formControlName="email" type="text" class="form-control" id="email" required
+              [(ngModel)]="customer.email" name="email" [ngClass]="{ 'is-invalid': chekform && f['email'].errors }">
+
+            @if (chekform && f['email'].errors) {
+            <div class="invalid-feedback">
+              @if (f['email'].errors['required']) {
+              <div>Vui lòng điền Email</div>
+              }
+              @if (f['email'].errors['email']) {
+              <div>Không đúng định dạng</div>
+              }
+            </div>
+            }
+            <!-- phone -->
+            <label for="phone">Phone</label>
+
+            <input formControlName="phone" type="phone" pattern="\d*" class="form-control" id="phone" required
+              [(ngModel)]="customer.phone" name="phone" [ngClass]="{ 'is-invalid': chekform && f['phone'].errors }">
+
+            @if (chekform && f['phone'].errors) {
+            <div class="invalid-feedback">
+              @if (f['phone'].errors['required']) {
+              <div>Vui lòng điền phone</div>
+              }
+              @if (f['phone'].errors['nameExists']) {
+              <div>Trùng tên</div>
+              }
+            </div>
+            }
+            <!-- vấn đề -->
+            <div class="form-group">
+              <label for="problem">Vấn đề</label>
+
+              <input formControlName="problem" type="text" class="form-control" id="problem" required
+                [(ngModel)]="customer.problem" name="problem"
+                [ngClass]="{ 'is-invalid': chekform && f['problem'].errors }">
+
+
+              @if (chekform && f['problem'].errors) {
+              <div class="invalid-feedback">
+                @if (f['problem'].errors['required']) {
+                <div>Vui long điền vấn đề</div>
+                }
+              </div>
+              }
+
+            </div>
+            <div style="margin-top: 10px;">
+              <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal"
+                style="margin-right: 10px;">Close</button>
+              <button type="submit" class="btn btn-success">Submit</button>
+
+            </div>
+          </form>
+          }
+
+        </div>
+        <h2 [hidden]="!submitted" style="text-align: center;">Sucess</h2>
+      </div>
+    </div>
+  </div>
+</div>

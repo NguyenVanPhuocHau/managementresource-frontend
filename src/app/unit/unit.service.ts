@@ -42,7 +42,7 @@ export class UnitService {
   }
 
   getUnitById(id: number):Observable<Unit[]>{
-    return this.httpClient.get<Unit[]>(`${apiUrl}/${id}`).pipe(
+    return this.httpClient.get<Unit[]>(`${apiUrl}/get/${id}`).pipe(
     )
   }
 

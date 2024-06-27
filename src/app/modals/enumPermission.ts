@@ -1,0 +1,14 @@
+export enum Permission{
+      //REMOVE
+      REMOVE_USER = "REMOVE_USER",
+      REMOVE_CUSTOMER = "REMOVE_CUSTOMER",
+      REMOVE_UNIT = "REMOVE_UNIT",
+      //EDIT
+      EDIT_USER = "EDIT_USER",
+      EDIT_UNIT = "EDIT_UNIT",
+      EDIT_CUSTOMER = "EDIT_CUSTOMER",
+      //ADD
+      ADD_CUSTOMER = "ADD_CUSTOMER",
+      ADD_USER = "ADD_USER",
+      ADD_UNIT = "ADD_UNIT"
+}
