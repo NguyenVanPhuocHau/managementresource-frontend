@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../../../employee/employee.service';
 import { Employee } from '../../../employee/employee';
@@ -32,6 +32,8 @@ export class AddUserModalComponent implements OnInit {
   myForm: FormGroup = new FormGroup({
     fullName: new FormControl(''),
     email: new FormControl(),
+    password: new FormControl(),
+    confirmPassword: new FormControl(),
     roleId: new FormControl(''),
     unitId: new FormControl('')
   });
@@ -78,27 +80,52 @@ export class AddUserModalComponent implements OnInit {
       fullName: ['', Validators.required],
       email: ['', {
         validators: [Validators.required, Validators.email],
-        asyncValidators: this.styleModal === 'update' ? [] :[this.exitEmailService.validateEmail()],
+        asyncValidators: this.styleModal === 'update' ? [] : [this.exitEmailService.validateEmail()],
+        updateOn: 'blur'
+      }],
+      password: ['', {
+        validators: [Validators.required, Validators.minLength(6)],
+        updateOn: 'blur'
+      }],
+      confirmPassword: ['', {
+        validators: [Validators.required, Validators.minLength(6)],
+        
         updateOn: 'blur'
       }],
       roleId: ['', Validators.required],
       unitId: ['', Validators.required],
+    }, {
+      asyncValidators: this.exitEmailService.passwordMatchValidator()
     });
     this.updateForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       roleId: ['', Validators.required],
       unitId: ['', Validators.required],
     });
-    
+
   }
 
-  customEmailValidator(control: AbstractControl) {
-    const email: string = control.value;
-    if (!this.employeeService.checkEmail(email)) {
-      return { invalidEmail: true };
-    }
-    return true;
-  }
+  // passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  //   const password = control.get('password')?.value;
+  //   const confirmPassword = control.get('confirmPassword')?.value;
+
+  //   return password === confirmPassword ? null : { passwordMismatch: true };
+  // };
+
+  // passwordMatchValidator1(group: FormGroup) {
+  //   const password = group.get('password')?.value;
+  //   const confirmPassword = group.get('confirmPassword')?.value;
+
+  //   return password === confirmPassword ? null : { passwordMismatch: true };
+  // }
+
+  // customEmailValidator(control: AbstractControl) {
+  //   const email: string = control.value;
+  //   if (!this.employeeService.checkEmail(email)) {
+  //     return { invalidEmail: true };
+  //   }
+  //   return true;
+  // }
 
 
 
@@ -142,13 +169,13 @@ export class AddUserModalComponent implements OnInit {
     }
   }
 
-  
+
   onSubmitUpdate() {
     this.chekform = true;
     console.log(this.updateForm.valid)
     if (this.updateForm.valid) {
       this.submitted = true
-        this.update(this.currentUser.id);
+      this.update(this.currentUser.id);
     }
   }
 

@@ -1,9 +1,21 @@
-<div class="input-group">
-    <div class="form-outline" data-mdb-input-init>
-      <input type="search" id="form1" class="form-control" />
-      <!-- <label class="form-label" for="form1">Search</label> -->
+<div class="search-area">
+  <div class="input-customerInfor">
+    <div class="form-inputCus">
+      <input [(ngModel)]="customerId" type="search" id="form1" class="form-control" />
     </div>
-    <button type="button" class="btn btn-primary" data-mdb-ripple-init>
+    <button (click)="findCustomerInfor()" type="button" class="btn btn-primary">
       <i class="fas fa-search"></i>
     </button>
   </div>
+  <div class="result">
+    <div class="infor" *ngIf="customerData">
+      <div *ngIf="customerData" class="customer-infor">{{customerData.id}} - {{customerData.fullName}} - {{customerData.email}} - {{customerData.phone}}
+        - {{customerData.problem}}
+      </div>
+      <div class="usermana-infor" >
+        User quản lý - {{customerData.user.fullName}} - {{customerData.user.email}}
+      </div>
+    </div>
+    
+  </div>
+</div>

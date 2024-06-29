@@ -107,6 +107,9 @@
               @if (f['email'].errors['email']) {
               <div>Không đúng định dạng</div>
               }
+              @if (f['email'].errors['emailExists']) {
+                <div>Email đã tồn tại</div>
+                }
             </div>
             }
             <!-- phone -->
@@ -132,8 +135,6 @@
               <input formControlName="problem" type="text" class="form-control" id="problem" required
                 [(ngModel)]="customer.problem" name="problem"
                 [ngClass]="{ 'is-invalid': chekform && f['problem'].errors }">
-
-
               @if (chekform && f['problem'].errors) {
               <div class="invalid-feedback">
                 @if (f['problem'].errors['required']) {

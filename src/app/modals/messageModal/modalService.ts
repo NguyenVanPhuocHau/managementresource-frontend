@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
       this.isTokenExpiredSubject.next(isExpired);
     }
   
-    // Phương thức kiểm tra token hết hạn
+  
     // private checkTokenExpiration() {
     //   const token = this.authService.getLoginResponse()?.token;
     //   if (token) {

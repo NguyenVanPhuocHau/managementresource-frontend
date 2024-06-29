@@ -102,7 +102,8 @@ export class AppComponent implements OnInit{
 
   logout(){
     this.authService.logout();
-    this.init()
+    this.init();
+    this.alertLogin = true
     this.router.navigate(["/"]);
   }
 
