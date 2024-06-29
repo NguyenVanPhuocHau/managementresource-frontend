@@ -78,7 +78,7 @@ export class AddCustomerModalComponent implements OnInit {
       fullName: ['', Validators.required],
       email: ['', {
         validators: [Validators.required, Validators.email],
-        asyncValidators: [this.exitEmailService.validateEmail()],
+        asyncValidators: [this.exitEmailService.validateEmailCus()],
         updateOn: 'blur'
       }],
       phone: ['', Validators.required],
@@ -120,7 +120,7 @@ export class AddCustomerModalComponent implements OnInit {
         console.error('User ID is undefined');
         return;
     }
-
+    console.log(this.authService.getLoginResponse()?.token)
     this.customerService.createCustomer(this.customer)
       .subscribe(data => { console.log(data); this.freshpage.emit(); this.closeModalAfterDelay() }, error => console.log(error));
     this.customer = new customer();

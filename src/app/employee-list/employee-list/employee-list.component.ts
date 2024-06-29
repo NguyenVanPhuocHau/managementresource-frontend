@@ -149,13 +149,11 @@ import { AuthService } from '../../authService/authServcie';
    
     onSelectChange(event: any, idUser: number) {
       const selectedUnitId = event.target.value;
-     
+     alert("change")
       this.employeeService.changeUnitofUser(idUser,selectedUnitId).subscribe((res:any) =>{
         this.getAll2()
       }
-
       )
-
       
     }
 

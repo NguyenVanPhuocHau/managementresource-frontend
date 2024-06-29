@@ -7,11 +7,11 @@ import { ModalService } from '../modals/messageModal/modalService';
 
 export const ErrorInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
     const authenticationService = inject(AuthService)
-    const modalService = inject(ModalService);
+    // const modalService = inject(ModalService);
     return next(req).pipe(
         catchError(err => {
             if ([401, 403].includes(err.status)) {
-                modalService.openLoginModal();
+                // modalService.openLoginModal();
             }
             const error = err.error.message || err.statusText;
             return throwError(error);

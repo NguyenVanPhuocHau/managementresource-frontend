@@ -43,6 +43,7 @@ ul li{
 /* loign form*/
 .login-form{
   background: white;
+  width: 100%;
 }
 .header-card{
   margin-bottom: 5px;
@@ -117,8 +118,17 @@ ul li{
   text-align: center;
 }
 
+.wd-18{
+  width: 18%;
+}
 
+.wd-82{
+  width: 82%;
+}
 
+.pd-3{
+  padding: 3px;
+}
 
 
 /* .login-form{width:390px;} */
