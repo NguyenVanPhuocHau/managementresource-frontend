@@ -7,7 +7,7 @@ import { EmployeeService } from '../../employee/employee.service';
 import { CustomerService } from '../../service/customerService';
 import { AddCustomerModalComponent } from '../../modal/addCustomer-modal/add-customer-modal/add-customer-modal.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { AuthService } from '../../authService/authServcie';
+import { AuthService } from '../../service/authService/authServcie';
 @Component({
   selector: 'app-unit-list',
   standalone: true,
@@ -31,55 +31,28 @@ export class CustomerListComponent implements OnInit{
     this.canEdit = this.hasPermission('EDIT_CUSTOMER');
     this.canAdd = this.hasPermission('ADD_CUSTOMER');
   }
-
   hasPermission(permiss: string): boolean {
     const permissions = this.authService.getLoginResponse()?.permissions;
   return permissions ? permissions.includes(permiss) : false;
   }
-  
   constructor(private authService: AuthService,private userService: EmployeeService, private customerService: CustomerService) { }
-
   getAllCustomer(): void {
     this.customerService.getAllCustomer().subscribe((res: any) => {
       this.datas = res;
       console.log(this.datas)
     });
-    
   }
-
   loadAfterdetete(): void {
-   
-    // this.unitService.getAll(this.currentPage).subscribe((res: any) => {
-    //   this.datas = res.content;
-    //   if(this.totalPages ! = res.totalPages){
-    //     this.changePage(res.totalPages)
-    //   }
-    //   this.totalPages = res.totalPages;
-      
-    // });
-    
   }
-
-
-
-
-
   changePage(pageNo: number): void {
-    // this.currentPage = pageNo;
-   
-    // this.getAllUnits();
   }
-
   add(){
       this.styleModal = "null"
-     
       this.open();
   }
-
   open(){
     this.modal?.openModal();
   }
-
   deleteUnit(id: number){
     this.customerService.deleteCustomer(id)
     .subscribe(
@@ -88,7 +61,6 @@ export class CustomerListComponent implements OnInit{
       },
       error => console.log(error));
   }
-
   onUpdate(id: number): void {
     this.styleModal = "update";
     this.customerService.getCustomerById(id).subscribe((res:any)=>{
@@ -97,10 +69,8 @@ export class CustomerListComponent implements OnInit{
     console.log(this.currentCustomer)
     this.open()
   }
-
   getListUserIn(ids: number[]): void{
     this.styleModal = "detail"
-   
     this.userService.getUsersByIds(ids).subscribe(
       data => {
         this.listUser = data;
@@ -111,10 +81,8 @@ export class CustomerListComponent implements OnInit{
     );
     this.open()
   }
-
   listUserOfUnit(id: number): void{
     this.styleModal = "detail"
-   
     this.userService.getUserByUnitId(id).subscribe(
       data => {
         this.listUser = data;
@@ -125,12 +93,4 @@ export class CustomerListComponent implements OnInit{
     );
     this.open()
   }
-
-  
-
-
-
-
-  
-
 }

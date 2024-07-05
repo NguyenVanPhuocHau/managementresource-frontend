@@ -6,8 +6,7 @@ import { EmployeeService } from '../../../employee/employee.service';
 import { Employee } from '../../../employee/employee';
 import { UnitService } from '../../../unit/unit.service';
 import { Unit } from '../../../unit/unit';
-import { ExistingEmailsService } from '../../../email-service/existing-emails.service';
-
+import { ExistingEmailsService } from '../../../service/email-service/existing-emails.service';
 // @ts-ignore
 const $: any = window['$']
 @Component({
@@ -24,11 +23,8 @@ export class ModalUnitComponent implements OnInit{
   @Input() currentUnit: any; 
   @Output() freshpage = new EventEmitter<void>();
   @Output() offUpdateMode = new EventEmitter<void>();
-
-
   myForm: FormGroup = new FormGroup({
     name: new FormControl(''),
-   
     description: new FormControl(''),
   });;
   openModal(){
@@ -36,13 +32,9 @@ export class ModalUnitComponent implements OnInit{
     this.chekform = false
     this.myForm.reset()
   }
-
   closeModal(){
     $(this.modal?.nativeElement).modal('hide');
-
-   
   }
-
   closeModalAfterDelay(delay: number = 1000) {
     setTimeout(() => {
       this.closeModal();  
@@ -52,17 +44,13 @@ export class ModalUnitComponent implements OnInit{
       this.chekform = false;
     }, delay+300);
   }
-
   submitted = false;
   chekform = false
   massage = true;
   unit: Unit = new Unit();
-
   constructor(private router: Router,
     private unitservice: UnitService,private formBuilder: FormBuilder, private userService: EmployeeService, private exitEmailService: ExistingEmailsService) {
-      
      }
-
   ngOnInit(): void{
     this.myForm = this.formBuilder.group({
       name: ['', 
@@ -72,80 +60,40 @@ export class ModalUnitComponent implements OnInit{
       ],
       description: ['', Validators.required]
     });
-    
-   
   }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes.hasOwnProperty('styleModal') && changes['styleModal'].currentValue === 'detail') {
-  //     console.log(this.currentUnit)
-  //     this.userService.getUsersByIds(this.currentUnit.listUser).subscribe(
-  //       data => {
-  //         this.users = data;
-  //       },
-  //       error => {
-  //         console.error('Error fetching users:', error);
-  //       }
-  //     );
-  //   }
-  // }
-  
-
   newEmployee(): void {
     this.submitted = false;
     this.unit = new Unit();
   }
-
   save() {
     this.unitservice.createUnit(this.unit)
       .subscribe(data => {console.log(data);this.freshpage.emit();  this.closeModalAfterDelay()}, error => console.log(error));
     this.unit = new Unit();
     this.chekform = false;
-    
   }
-
   update(id: number){
     this.unitservice.updateUnit(this.currentUnit)
       .subscribe(data => {console.log(data);this.freshpage.emit(); this.offUpdateMode.emit(); this.closeModalAfterDelay()}, error => console.log(error));
       this.currentUnit = new Unit();
-    
-      
   }
-
   onSubmit() {
     this.chekform = true;
     console.log(this.myForm.valid)
     if (this.myForm.valid) {
      this.submitted = true
-      
     if(this.styleModal == "update"){
-      
       this.update(this.currentUnit.id);
-
-     
     }else{
-      
       this.save(); 
     }
-
     this.myForm.reset()
-    
   }
- 
 }
-
-
 onReset(): void{
   this.submitted = false;
   this.myForm.reset();
 }
-
 get f(): { [key: string]: AbstractControl } {
   return this.myForm.controls;
 }
-
-
-
-
 }
-

@@ -1,5 +1,5 @@
 .panel{
-    /* padding: 10px; */
+   
 }
 .panel-primary{
     margin: 50px 
@@ -9,7 +9,6 @@
 
 }
 
-/* Định nghĩa độ rộng cho các cột */
 .w-5 {
     width: 5%;
 }
@@ -22,7 +21,6 @@
     width: 30%;
 }
 
-/* Định nghĩa màu nền cho hàng tiêu đề */
 .table-striped thead tr.blulecoloer {
     background-color: #007bff;
     color: white;
@@ -53,30 +51,30 @@
   .pagination a:hover:not(.active) {background-color: #ddd;}
   .panel {
    
-    margin: 50px; /* Để căn giữa panel theo chiều ngang */
-    max-height: 600px; /* Chiều cao tối đa của panel */
-    overflow-y: auto; /* Hiển thị thanh cuộn khi nội dung vượt quá chiều cao */
+    margin: 50px; 
+    max-height: 600px; 
+    overflow-y: auto; 
 }
 
 .datatable {
-    margin-top: 20px; /* Khoảng cách từ đỉnh panel đến bảng */
+    margin-top: 20px; 
 
 }
 
 #userListTable {
-    width: 100%; /* Bảng chiếm toàn bộ chiều rộng của panel */
-    table-layout: fixed; /* Đảm bảo bảng có chiều rộng cố định */
+    width: 100%; 
+    table-layout: fixed; 
 }
 
 .table {
-    margin-bottom: 0; /* Xóa khoảng cách dư thừa dưới bảng */
+    margin-bottom: 0; 
 }
 .table-wrapper {
-  max-height: 330px; /* Chiều cao cố định cho bảng */
-  overflow-y: auto; /* Tính năng cuộn dọc */
+  max-height: 330px; 
+  overflow-y: auto; 
 }
 .panel-heading {
-    text-align: center; /* Căn giữa nội dung trong panel heading */
+    text-align: center; 
 }
 
 #userListTable {
@@ -87,135 +85,128 @@
 #userListTable th,
 #userListTable td {
   padding: 8px;
-  /* text-align: center; */
   border: 1px solid #ddd;
 }
 
 .actions-container {
-  display: flex; /* Sử dụng flexbox để các phần tử tự động xuống dòng khi không đủ không gian */
-  flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không có đủ không gian */
+  display: flex; 
+  flex-wrap: wrap; 
 }
 
 .actions-container button {
-  margin: 5px; /* Khoảng cách giữa các nút */
+  margin: 5px; 
 }
 
 .table-responsive {
-  overflow-x: auto; /* Hiển thị thanh cuộn ngang khi cần thiết */
+  overflow-x: auto; 
 }
 
 #userListTable {
-  width: 100%; /* Chiều rộng của bảng */
-  border-collapse: collapse; /* Đảm bảo viền của bảng được gộp lại */
+  width: 100%;
+  border-collapse: collapse;
 }
 
 #userListTable th,
 #userListTable td {
-  padding: 8px; /* Khoảng cách giữa nội dung và viền của các ô */
-  /* text-align: center;  */
-  border: 1px solid #ddd; /* Đường viền của từng ô */
-  white-space: nowrap; /* Ngăn không cho nội dung bên trong ô bị tràn ra ngoài */
-  overflow: hidden; /* Ẩn nội dung bị tràn ra ngoài */
-  text-overflow: ellipsis; /* Hiển thị dấu ba chấm (...) khi nội dung bị tràn ra ngoài */
+  padding: 8px;
+ 
+  border: 1px solid #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   width: auto;
 }
 
 .actions-container {
-  display: flex; /* Sử dụng flexbox để các phần tử tự động xuống dòng khi không đủ không gian */
-  flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không có đủ không gian */
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .actions-container button {
-  margin: 5px; /* Khoảng cách giữa các nút */
+  margin: 5px;
 }
 #userListTable .w-5 {
-    width: 5%; /* Độ rộng của cột ID */
+    width: 5%;
 }
 
 #userListTable .w-20 {
-    width: 20%; /* Độ rộng của các cột Tên và Chức năng */
+    width: 20%;
 }
 
 #userListTable .w-40 {
-    width: 40%; /* Độ rộng của cột Mô tả */
+    width: 40%;
 }
 
 #userListTable .btn {
-    /*padding: 0.25rem 0.5rem; /* Điều chỉnh khoảng cách lề và độ dày của các nút */
+   
 }
 
-/*màu 
-.blulecoloer {
-    color: rebeccapurple;
-}
 
-/* Thêm hiệu ứng hover cho các hàng của bảng */
 #userListTable tbody tr:hover td {
-  background-color: #e9ecef !important; /* Thay đổi màu nền */
- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ
-  /* transform: scale(1.02); Tăng kích thước nhẹ */
-  cursor: pointer; /* Thêm con trỏ chuột dạng pointer khi hover */
-  transition: all 0.2s ease-in-out; /* Thêm hiệu ứng chuyển động mượt */
+  background-color: #e9ecef !important;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-/* Thêm màu nền xanh cho bảng và các tiêu đề */
+
 .table.blulecoloer thead tr th{
-  background-color: #007bff; /* Màu xanh của Bootstrap */
-  color: #fff; /* Màu chữ trắng */
+  background-color: #007bff;
+  color: #fff;
 }
 .padding20x{
   padding: 20px;
 }
 
-/* Định dạng bảng DataTables */
+
 #userListTable {
-  width: 100%; /* Thiết lập bảng chiếm toàn bộ chiều rộng của phần tử cha */
-  border-collapse: collapse; /* Xóa khoảng cách giữa các ô */
+  width: 100%;
+  border-collapse: collapse;
 }
 
-/* Định dạng các ô đầu tiên của từng hàng */
+
 table th {
-  background-color: #f2f2f2; /* Màu nền cho các ô đầu tiên */
-  padding: 8px; /* Đệm cho các ô */
-  text-align: left; /* Căn lề trái cho văn bản trong ô */
-  border: 1px solid #ddd; /* Đường viền cho các ô */
+  background-color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
 }
 
-/* Định dạng các ô dữ liệu */
+
 table td {
-  padding: 8px; /* Đệm cho các ô */
-  text-align: left; /* Căn lề trái cho văn bản trong ô */
-  border: 1px solid #ddd; /* Đường viền cho các ô */
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
 }
 
-/* Định dạng cho hàng chẵn */
+
 table tr:nth-child(even) {
-  background-color: #f2f2f2; /* Màu nền cho các hàng chẵn */
+  background-color: #f2f2f2;
 }
 
-/* Định dạng cho hàng lẻ */
+
 table tr:nth-child(odd) {
-  background-color: #ffffff; /* Màu nền cho các hàng lẻ */
+  background-color: #ffffff;
 }
 
 table tbody tr td:last-child {
-  text-align: center; /* Căn giữa nội dung của cột cuối cùng theo chiều ngang */
+  text-align: center;
 }
 
 .table {
   
-  overflow: hidden; /* Tự động hiển thị thanh cuộn khi nội dung vượt quá chiều cao */
+  overflow: hidden;
 }
 table .dataTables_scrollBody {
-  overflow-y: hidden !important; /* Ẩn thanh cuộn dọc */
+  overflow-y: hidden !important;
 }
 
 .dataTables_scrollBody::-webkit-scrollbar {
-  display: none; /* Ẩn thanh cuộn của trình duyệt Chrome/Safari */
+  display: none;
 }
 
 .dataTables_scrollBody {
-  -ms-overflow-style: none; /* Ẩn thanh cuộn của trình duyệt Edge/IE */
+  -ms-overflow-style: none;
 }
 
 

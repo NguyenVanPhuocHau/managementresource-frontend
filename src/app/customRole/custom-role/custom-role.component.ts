@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RoleService } from '../../service/roleService';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-custom-role',
   standalone: true,
@@ -14,10 +13,8 @@ import { Router } from '@angular/router';
   styleUrl: './custom-role.component.css'
 })
 export class CustomRoleComponent implements OnInit{
-
   constructor(private permissionService: PermissionService,private roleService: RoleService, private router: Router){}
   permissions: Permission[]=[];
-  // selectedPermissionIds: number[] = [];
   roleName: string = '';
   ngOnInit(): void {
     this.getAllPer()
@@ -29,7 +26,6 @@ export class CustomRoleComponent implements OnInit{
       this.permissions = res;
     })
   }
-
   onSubmit() {
     const selectedPermissionIds = this.permissions.filter(permission => this.permissionStates[permission.id])
     .map(permission => permission.id);
@@ -45,11 +41,7 @@ export class CustomRoleComponent implements OnInit{
         }
       );
   }
-
   resetForm() {
     this.roleName = '';
   }
-  
-  
-
 }

@@ -139,13 +139,12 @@
                 <div>Sai độ dài</div>
                 }
               </div>
-            }
+              }
             </div>
             <div class="form-group">
               <label for="confirmPassword">confirmPassword</label>
-              <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword" required
-                 name="confirmPassword"
-                [ngClass]="{ 'is-invalid': chekform && f['confirmPassword'].errors }">
+              <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword"
+                required name="confirmPassword" [ngClass]="{ 'is-invalid': chekform && f['confirmPassword'].errors }">
               @if (chekform && f['confirmPassword'].errors) {
               <div class="invalid-feedback">
                 @if (f['confirmPassword'].errors['required']) {
@@ -155,63 +154,63 @@
                 <div>độ dài 6</div>
                 }
                 @if (f['confirmPassword'].errors['passwordMismatch']) {
-                  <div>Nhập lại không đúng</div>
+                <div>Nhập lại không đúng</div>
                 }
               </div>
-            }
+              }
             </div>
-          
-              <div class="form-group">
-                <label for="role">Vai trò</label>
 
-                @if (styleModal == "detail") {
-                <p>{{currentUser?.role.name}}</p>
-                }
-                @else {
-                <!-- <input formControlName="role" type="text" class="form-control" id="role" required  name="role"  [ngClass]="{ 'is-invalid': chekform && f['role'].errors }"> -->
-                <select formControlName="roleId" class="form-control" id="roleId" name="role"
-                  [(ngModel)]="addUserRequest.roleId" [ngClass]="{ 'is-invalid': chekform && f['roleId'].errors }">
-                  <!-- <option value="" disabled selected>Chọn Phòng ban</option> -->
-                  <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
-                </select>
+            <div class="form-group">
+              <label for="role">Vai trò</label>
 
-                }
-                @if (chekform && f['roleId'].errors) {
-                <div class="invalid-feedback">
-                  @if (f['roleId'].errors['required']) {
-                  <div>Vui long nhập vai trò</div>
-                  }
-                </div>
+              @if (styleModal == "detail") {
+              <p>{{currentUser?.role.name}}</p>
+              }
+              @else {
+              <!-- <input formControlName="role" type="text" class="form-control" id="role" required  name="role"  [ngClass]="{ 'is-invalid': chekform && f['role'].errors }"> -->
+              <select formControlName="roleId" class="form-control" id="roleId" name="role"
+                [(ngModel)]="addUserRequest.roleId" [ngClass]="{ 'is-invalid': chekform && f['roleId'].errors }">
+                <!-- <option value="" disabled selected>Chọn Phòng ban</option> -->
+                <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+              </select>
+
+              }
+              @if (chekform && f['roleId'].errors) {
+              <div class="invalid-feedback">
+                @if (f['roleId'].errors['required']) {
+                <div>Vui long nhập vai trò</div>
                 }
               </div>
-              <div class="form-group">
-                <label for="unitId">Đơn vị</label>
+              }
+            </div>
+            <div class="form-group">
+              <label for="unitId">Đơn vị</label>
 
-                @if (styleModal == "detail") {
-                <p>{{currentUser?.unit.name}}</p>
-                }
-                @else {
-                <select formControlName="unitId" class="form-control" id="unitId" name="unitId"
-                  [(ngModel)]="addUserRequest.unitId" [ngClass]="{ 'is-invalid': chekform && f['unitId'].errors }">
-                  <option value="" disabled selected>Chọn Phòng ban</option>
-                  <option *ngFor="let unit of units" [value]="unit.id">{{ unit.name }}</option>
-                </select>
-                }
+              @if (styleModal == "detail") {
+              <p>{{currentUser?.unit.name}}</p>
+              }
+              @else {
+              <select formControlName="unitId" class="form-control" id="unitId" name="unitId"
+                [(ngModel)]="addUserRequest.unitId" [ngClass]="{ 'is-invalid': chekform && f['unitId'].errors }">
+                <option value="" disabled selected>Chọn Phòng ban</option>
+                <option *ngFor="let unit of units" [value]="unit.id">{{ unit.name }}</option>
+              </select>
+              }
 
-                @if (chekform && f['unitId'].errors) {
-                <div class="invalid-feedback">
-                  @if (f['unitId'].errors['required']) {
-                  <div>Vui lòng chọn dơn vị</div>
-                  }
-                </div>
+              @if (chekform && f['unitId'].errors) {
+              <div class="invalid-feedback">
+                @if (f['unitId'].errors['required']) {
+                <div>Vui lòng chọn dơn vị</div>
                 }
               </div>
-              <div style="margin-top: 10px;">
-                <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal"
-                  style="margin-right: 10px;">Close</button>
-                <button type="submit" *ngIf="styleModal === 'null'" class="btn btn-success">Submit</button>
-                <button type="submit" *ngIf="styleModal === 'update'" class="btn btn-success">Update</button>
-              </div>
+              }
+            </div>
+            <div style="margin-top: 10px;">
+              <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal"
+                style="margin-right: 10px;">Close</button>
+              <button type="submit" *ngIf="styleModal === 'null'" class="btn btn-success">Submit</button>
+              <button type="submit" *ngIf="styleModal === 'update'" class="btn btn-success">Update</button>
+            </div>
           </form>
           }
         </div>
