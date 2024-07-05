@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-
 @Component({
   selector: 'app-login-modal',
   template: `
@@ -26,7 +25,6 @@ import { MatDialogRef } from '@angular/material/dialog';
       bottom: 0;
       z-index: 9999;
     }
-
     .message-modal-content {
       background-color: white;
       padding: 20px;
@@ -37,9 +35,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   `]
 })
 export class MessageModal {
-
   constructor(public dialogRef: MatDialogRef<MessageModal>) {}
-
   close(action: string): void {
     this.dialogRef.close(action);
   }

@@ -6,7 +6,6 @@
             <input type="text" id="roleName" name="roleName" [(ngModel)]="roleName" required>
             <fieldset>
                 <legend>Permissions</legend>
-                <!-- These checkboxes should be dynamically generated based on your permissions array -->
                 <div class="checkbox-container">
                     <div class="checkbox-container">
                         <div *ngFor="let permission of permissions" class="list-perimission">

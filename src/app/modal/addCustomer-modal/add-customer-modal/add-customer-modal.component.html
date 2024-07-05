@@ -38,7 +38,6 @@
             </div>
             <!-- phone -->
             <label for="phone">Phone</label>
-
             <input *ngIf="currentCustomer" formControlName="phone" type="number" class="form-control" id="phone"
               required [(ngModel)]="currentCustomer.phone" name="phone"
               [ngClass]="{ 'is-invalid': chekform && f1['phone'].errors }">
@@ -46,9 +45,6 @@
             <div class="invalid-feedback">
               @if (f1['phone'].errors['required']) {
               <div>Vui lòng điền phone</div>
-              }
-              @if (f1['phone'].errors['nameExists']) {
-              <div>Trùng phone</div>
               }
             </div>
             }
@@ -108,8 +104,8 @@
               <div>Không đúng định dạng</div>
               }
               @if (f['email'].errors['emailExists']) {
-                <div>Email đã tồn tại</div>
-                }
+              <div>Email đã tồn tại</div>
+              }
             </div>
             }
             <!-- phone -->

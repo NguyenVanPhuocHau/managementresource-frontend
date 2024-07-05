@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpInterceptorFn, HttpHandlerFn } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../authService/authServcie';
+import { AuthService } from '../service/authService/authServcie';
 
 export const JwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,

@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 600px; /* Điều chỉnh độ rộng tối đa của vùng tìm kiếm */
-  margin: 0 auto; /* Canh giữa vùng tìm kiếm */
+  max-width: 600px;
+  margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-customerInfor {
@@ -22,7 +22,7 @@
 }
 
 .form-control {
-  width: 100%; /* Đảm bảo input chiếm hết không gian của form-inputCus */
+  width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;

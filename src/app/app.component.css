@@ -1,63 +1,66 @@
-.bg-blue{
-    background: #1f7ed0;
+.bg-blue {
+  background: #1f7ed0;
 }
 
-ul li{
-    color: white;
+ul li {
+  color: white;
 }
 
-.nav{
-    margin-top: 10px;
-    width: 100%;
+.nav {
+  margin-top: 10px;
+  width: 100%;
 }
 
-.nav li{
-    width: 100%;
+.nav li {
+  width: 100%;
 }
 
-.nav-link{
-    color: white;
+.nav-link {
+  color: white;
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
-  padding: 10px 15px; /* Thêm khoảng cách bên trong */
-  display: block; /* Đảm bảo liên kết chiếm toàn bộ không gian của mục menu */
-  margin-bottom: 5px; /* Thêm khoảng cách giữa các mục menu */
-  border-radius: 5px; /* Thêm góc bo tròn */
-  background-color: #1f7ed0; /* Màu nền cho các mục menu */
-  border: 3px solid rgba(255, 255, 255, 0.1); /* Thêm viền nhạt giữa các mục menu */
-  font-weight: 500; /* Đặt trọng lượng font chữ để trông đẹp hơn */
+  padding: 10px 15px;
+  display: block;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background-color: #1f7ed0;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  font-weight: 500;
 }
 
 .nav-link:hover {
-  background-color: #105a8d; /* Màu nền khi hover */
-  color: white; /* Màu chữ khi hover */
+  background-color: #105a8d;
+  color: white;
 }
 
 .nav-link.active {
-  background-color: #105a8d; /* Màu nền cho menu được chọn */
+  background-color: #105a8d;
 }
 
-/* loign form*/
-.login-form{
+
+.login-form {
   background: white;
   width: 100%;
 }
-.header-card{
+
+.header-card {
   margin-bottom: 5px;
   display: flex;
-  justify-content: center; /* căn giữa theo chiều ngang */
-  align-items: center; /* căn giữa theo chiều dọc */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   background: #0a568a;
   height: 30px;
   font-weight: 500;
 }
-.pr-2{
+
+.pr-2 {
   margin-right: 5px;
 }
+
 .input-group-text {
   display: flex;
   align-items: center;
@@ -74,6 +77,7 @@ ul li{
   border-radius: .25rem;
 
 }
+
 .form-control {
   display: block;
   width: 80%;
@@ -88,7 +92,7 @@ ul li{
   border: 1px solid #ced4da;
   border-radius: .25rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  
+
 }
 
 .input-group {
@@ -98,37 +102,37 @@ ul li{
   align-items: stretch;
   width: 100%;
 }
-.action-button{
+
+.action-button {
   display: flex;
   justify-content: center;
   margin: 3px 0;
 }
 
-.pm-0{
+.pm-0 {
   padding: 0;
   margin: 3px 0;
 }
-.userInfor{
+
+.userInfor {
   color: #0d6efd;
-  
+
   font-weight: 500;
 }
-.roleInfor{
+
+.roleInfor {
   color: red;
   text-align: center;
 }
 
-.wd-18{
+.wd-18 {
   width: 18%;
 }
 
-.wd-82{
+.wd-82 {
   width: 82%;
 }
 
-.pd-3{
+.pd-3 {
   padding: 3px;
 }
-
-
-/* .login-form{width:390px;} */

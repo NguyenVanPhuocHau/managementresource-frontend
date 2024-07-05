@@ -2,12 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { AuthService } from './authService/authServcie';
+import { AuthService } from './service/authService/authServcie';
 import { ResouceConstant } from './constant/resouceConstant';
 import { data } from 'jquery';
-import { ModalService } from './modals/messageModal/modalService';
-
-
+import { ModalService } from './modal/messageModal/modalService';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -15,7 +13,7 @@ import { ModalService } from './modals/messageModal/modalService';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'Management Resource';
   formLogin: FormGroup = new FormGroup({
     email: new FormGroup(''),
@@ -25,60 +23,45 @@ export class AppComponent implements OnInit{
   password: string;
   alertLogin = true;
   menus: any = [];
-  filteredMenus: any [] = [];
- 
+  filteredMenus: any[] = [];
   userData: any;
-  constructor(private modalService:ModalService,private authService: AuthService,private router: Router, private formBuilder: FormBuilder){
+  constructor(private modalService: ModalService, private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
     this.init()
   }
-
   loadMenu() {
     this.filteredMenus = []
     this.menus = ResouceConstant.menus;
-    // const userData = this.authService.getLoginResponse();
     let useRole = "ROLE_DEFAULT";
     let userPermissions = []
-    if(this.userData != null){
+    if (this.userData != null) {
       useRole = this.userData.role;
       userPermissions = this.userData.permissions;
-      // console.log(useRole)
-      // console.log(userPermissions)
     }
-    this.menus.forEach((m: any) =>{
-        const isRolePresent = m.roles.find((role: any) => role === useRole || userPermissions.some((permission: any) => permission === role));
-        if(isRolePresent != undefined){
-          this.filteredMenus.push(m)
-        }
-        
+    this.menus.forEach((m: any) => {
+      const isRolePresent = m.roles.find((role: any) => role === useRole || userPermissions.some((permission: any) => permission === role));
+      if (isRolePresent != undefined) {
+        this.filteredMenus.push(m)
+      }
     })
     if (useRole !== "ROLE_DEFAULT") {
       this.filteredMenus.push({
-          path: 'infor',
-          text: 'Thông tin',
-          roles: []
+        path: 'infor',
+        text: 'Thông tin',
+        roles: []
       });
+    }
   }
-  }
-
   ngOnInit(): void {
     this.formLogin = this.formBuilder.group({
-      email: ['', [Validators.required,Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
-    // this.modalService.getTokenExpiredSubject().subscribe(tokenExpired => {
-    //   if (tokenExpired) {
-    //     this.modalService.openLoginModal(); // Hiển thị modal khi token hết hạn
-    //   }
-    // });
   }
-
-  init(){
+  init() {
     this.userData = this.authService.getLoginResponse();
     this.loadMenu()
   }
-
   checkForm = false;
-
   onSubmit() {
     this.checkForm = true;
     if (this.formLogin.valid) {
@@ -95,16 +78,13 @@ export class AppComponent implements OnInit{
       );
     }
   }
-
   get f(): { [key: string]: AbstractControl } {
     return this.formLogin.controls;
   }
-
-  logout(){
+  logout() {
     this.authService.logout();
     this.init();
     this.alertLogin = true
     this.router.navigate(["/"]);
   }
-
 }

@@ -1,89 +1,94 @@
-
-  
-  <!-- Modal -->
-  <div #modal class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog margin100" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          @if (styleModal == "update") {
-            <h3 [hidden]="submitted">Cập nhật thông tin</h3>
-          } 
-          @else if(styleModal == "detail"){
-            <h3 [hidden]="submitted">thông tin chi tiết</h3>
+<!-- Modal -->
+<div #modal class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog margin100" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        @if (styleModal == "update") {
+        <h3 [hidden]="submitted">Cập nhật thông tin</h3>
+        }
+        @else if(styleModal == "detail"){
+        <h3 [hidden]="submitted">thông tin chi tiết</h3>
+        }
+        @else {
+        <h3 [hidden]="submitted">thêm người đơn vị</h3>
+        }
+        <div [hidden]="submitted" style="width: 400px;">
+          @if(styleModal == "detail"){
+          <ul>
+            <li *ngFor="let user of listUser">
+              {{user.id}} - {{user.fullName }} - {{ user.email}}
+            </li>
+          </ul>
           }
           @else {
-            <h3 [hidden]="submitted">thêm người đơn vị</h3>
-          }
-            <div [hidden]="submitted"  style="width: 400px;">
-              @if(styleModal == "detail"){
-                <ul>
-                  <li *ngFor="let user of listUser">
-                    {{user.id}} - {{user.fullName }} - {{ user.email}}
-                  </li>
-                </ul>
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <!-- <div hidden> -->
+
+              <!-- </div> -->
+              <label for="name">Tên</label>
+              @if (styleModal == "update") {
+              <input *ngIf="currentUnit" formControlName="name" type="text" class="form-control" id="name" required
+                [(ngModel)]="currentUnit.name" name="name" [ngClass]="{ 'is-invalid': chekform && f['name'].errors }">
               }
-              @else {
-                <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-                  <div class="form-group">
-                    <!-- <div hidden> -->
-                    
-                  <!-- </div> -->
-                    <label for="name">Tên</label>
-                    @if (styleModal == "update") {
-                      <input *ngIf="currentUnit" formControlName="name" type="text"  class="form-control" id="name" required [(ngModel)]="currentUnit.name" name="name" [ngClass]="{ 'is-invalid': chekform && f['name'].errors }">
-                    } 
-                    <!-- @else if(styleModal == "detail"){
+              <!-- @else if(styleModal == "detail"){
                       <p *ngFor="let user of users">{{currentUnit?.name}}</p>
                     } -->
-                    @else {
-                      <input formControlName="name" type="text"  class="form-control" id="name" required [(ngModel)]="unit.name" name="name"  [ngClass]="{ 'is-invalid': chekform && f['name'].errors }">
-                    }
-                    @if (chekform && f['name'].errors) {
-                      <div class="invalid-feedback">
-                        @if (f['name'].errors['required']) {
-                        <div>Vui lòng điền tên</div>
-                        }
-                        @if (f['name'].errors['nameExists']) {
-                          <div>Trùng tên</div>
-                          }
-                      </div>
-                      }
-                  </div>
-                  
-                 
-                  <div class="form-group">
-                      <label for="description">Mô tả</label>
-                      @if (styleModal == "update") {
-                       
-                        <input *ngIf="currentUnit" formControlName="description" type="text" class="form-control" id="description" required [(ngModel)]="currentUnit.description" name="description">
-                      } 
-                      <!-- @else if (styleModal == "detail") {
+              @else {
+              <input formControlName="name" type="text" class="form-control" id="name" required [(ngModel)]="unit.name"
+                name="name" [ngClass]="{ 'is-invalid': chekform && f['name'].errors }">
+              }
+              @if (chekform && f['name'].errors) {
+              <div class="invalid-feedback">
+                @if (f['name'].errors['required']) {
+                <div>Vui lòng điền tên</div>
+                }
+                @if (f['name'].errors['nameExists']) {
+                <div>Trùng tên</div>
+                }
+              </div>
+              }
+            </div>
+
+
+            <div class="form-group">
+              <label for="description">Mô tả</label>
+              @if (styleModal == "update") {
+
+              <input *ngIf="currentUnit" formControlName="description" type="text" class="form-control" id="description"
+                required [(ngModel)]="currentUnit.description" name="description">
+              }
+              <!-- @else if (styleModal == "detail") {
                         <p>{{currentUnit?.description}}</p>
                       } -->
-                      @else {
-                        <input formControlName="description" type="text" class="form-control" id="description" required [(ngModel)]="unit.description" name="description"  [ngClass]="{ 'is-invalid': chekform && f['description'].errors }">
-                      }
-                    
-                      @if (chekform && f['description'].errors) {
-                        <div class="invalid-feedback">
-                          @if (f['description'].errors['required']) {
-                          <div>Vui long điền mô tả</div>
-                          }
-                        </div>
-                        }
-                      
-                    </div>
-                    <div style="margin-top: 10px;">
-                  <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 10px;">Close</button>
-                  <button type="submit" *ngIf="styleModal === 'null'" class="btn btn-success">Submit</button>
-                  <button type="submit"  *ngIf="styleModal === 'update'" class="btn btn-success">Update</button>
-                </div>
-                </form>
+              @else {
+              <input formControlName="description" type="text" class="form-control" id="description" required
+                [(ngModel)]="unit.description" name="description"
+                [ngClass]="{ 'is-invalid': chekform && f['description'].errors }">
               }
-             
+
+              @if (chekform && f['description'].errors) {
+              <div class="invalid-feedback">
+                @if (f['description'].errors['required']) {
+                <div>Vui long điền mô tả</div>
+                }
+              </div>
+              }
+
             </div>
-            <h2 [hidden]="!submitted" style="text-align: center;">Sucess</h2>
+            <div style="margin-top: 10px;">
+              <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal"
+                style="margin-right: 10px;">Close</button>
+              <button type="submit" *ngIf="styleModal === 'null'" class="btn btn-success">Submit</button>
+              <button type="submit" *ngIf="styleModal === 'update'" class="btn btn-success">Update</button>
+            </div>
+          </form>
+          }
+
         </div>
+        <h2 [hidden]="!submitted" style="text-align: center;">Sucess</h2>
       </div>
     </div>
   </div>
+</div>

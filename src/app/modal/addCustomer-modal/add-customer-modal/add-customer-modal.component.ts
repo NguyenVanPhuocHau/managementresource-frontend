@@ -6,11 +6,10 @@ import { EmployeeService } from '../../../employee/employee.service';
 import { Employee } from '../../../employee/employee';
 import { UnitService } from '../../../unit/unit.service';
 import { Unit } from '../../../unit/unit';
-import { ExistingEmailsService } from '../../../email-service/existing-emails.service';
-import { customer } from '../../../modals/customer';
-import { AuthService } from '../../../authService/authServcie';
+import { customer } from '../../../models/customer';
+import { AuthService } from '../../../service/authService/authServcie';
 import { CustomerService } from '../../../service/customerService';
-
+import { ExistingEmailsService } from '../../../service/email-service/existing-emails.service';
 // @ts-ignore
 const $: any = window['$']
 @Component({
@@ -27,8 +26,6 @@ export class AddCustomerModalComponent implements OnInit {
   @Input() currentCustomer: any;
   @Output() freshpage = new EventEmitter<void>();
   @Output() offUpdateMode = new EventEmitter<void>();
-
-
   myForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     email: new FormControl(''),
@@ -46,13 +43,9 @@ export class AddCustomerModalComponent implements OnInit {
     this.myForm.reset()
     this.myUpdateForm.reset()
   }
-
   closeModal() {
     $(this.modal?.nativeElement).modal('hide');
-
-
   }
-
   closeModalAfterDelay(delay: number = 1000) {
     setTimeout(() => {
       this.closeModal();
@@ -62,17 +55,13 @@ export class AddCustomerModalComponent implements OnInit {
       this.chekform = false;
     }, delay + 300);
   }
-
   submitted = false;
   chekform = false
   massage = true;
   customer: customer = new customer();
- 
   constructor(private router: Router,
   private authService: AuthService, private customerService: CustomerService, private formBuilder: FormBuilder, private userService: EmployeeService, private exitEmailService: ExistingEmailsService) {
-
   }
-
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
       fullName: ['', Validators.required],
@@ -89,29 +78,11 @@ export class AddCustomerModalComponent implements OnInit {
       phone: ['', Validators.required],
       problem: ['', Validators.required],
     });
-    
   }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes.hasOwnProperty('styleModal') && changes['styleModal'].currentValue === 'detail') {
-  //     console.log(this.currentUnit)
-  //     this.userService.getUsersByIds(this.currentUnit.listUser).subscribe(
-  //       data => {
-  //         this.users = data;
-  //       },
-  //       error => {
-  //         console.error('Error fetching users:', error);
-  //       }
-  //     );
-  //   }
-  // }
-
-
   newCustomer(): void {
     this.submitted = false;
     this.customer = new customer();
   }
-
   save() {
     const userId = this.authService.getLoginResponse()?.id;
     if (userId !== undefined) {
@@ -125,24 +96,18 @@ export class AddCustomerModalComponent implements OnInit {
       .subscribe(data => { console.log(data); this.freshpage.emit(); this.closeModalAfterDelay() }, error => console.log(error));
     this.customer = new customer();
     this.chekform = false;
-
   }
-
   update(id: number) {
     this.customerService.updateCustomer(this.currentCustomer)
       .subscribe(data => { console.log(data); this.freshpage.emit(); this.offUpdateMode.emit(); this.closeModalAfterDelay() }, error => console.log(error));
     this.currentCustomer = new customer();
-
-
   }
-
   onSubmit() {
     this.chekform = true;
     console.log(this.myForm.valid)
     if (this.myForm.valid) {
       this.submitted = true
       if (this.styleModal == "update") {
-        
         this.update(this.currentCustomer.id);
       } else {
         // this.customer.userId = this.userId;
@@ -150,9 +115,7 @@ export class AddCustomerModalComponent implements OnInit {
       }
       this.myForm.reset()
     }
-
   }
-
   onSubmitUpdate() {
     this.chekform = true;
     console.log(this.myForm.valid)
@@ -161,25 +124,16 @@ export class AddCustomerModalComponent implements OnInit {
         this.update(this.currentCustomer.id);
       this.myForm.reset()
     }
-
   }
-
-
   onReset(): void {
     this.submitted = false;
     this.myForm.reset();
     this.myUpdateForm.reset();
   }
-
   get f(): { [key: string]: AbstractControl } {
     return this.myForm.controls;
   }
   get f1(): { [key: string]: AbstractControl } {
     return this.myUpdateForm.controls;
   }
-
-
-
-
-
 }

@@ -1,18 +1,18 @@
 <div class="container-fluid">
-  <div class="row flex-nowrap">
-      <div class="col-lg-2 col-md-3 col-sm-4  p-0 bg-blue wd-18">
-          <div class="d-flex flex-column align-items-center align-items-sm-start pd-3 text-white min-vh-100">
+    <div class="row flex-nowrap">
+        <div class="col-lg-2 col-md-3 col-sm-4  p-0 bg-blue wd-18">
+            <div class="d-flex flex-column align-items-center align-items-sm-start pd-3 text-white min-vh-100">
                 <div class="login-form">
                     <div class="header-card">
-                        <i class="fas fa-user pr-2"></i> 
+                        <i class="fas fa-user pr-2"></i>
                         ĐĂNG NHẬP
                     </div>
                     <div class="body-card">
                         @if(userData!=null){
-                           <div class="userInfor">Tài khoản: {{userData.email}}</div>
-                           <div class="userInfor">Họ và Tên: <br> {{userData.fullName}}</div>
-                           <div class="userInfor roleInfor">{{userData.role}}</div>
-                           <div class="action-button">
+                        <div class="userInfor">Tài khoản: {{userData.email}}</div>
+                        <div class="userInfor">Họ và Tên: <br> {{userData.fullName}}</div>
+                        <div class="userInfor roleInfor">{{userData.role}}</div>
+                        <div class="action-button">
                             <button type="submit" class="btn btn-warning" (click)="logout()">
                                 <i class="fas fa-sign-in-alt"></i>
                                 Đăng xuất</button>
@@ -21,35 +21,39 @@
                         @else {
                         <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="form-login">
                             <div class="form-input">
-                            <div class="input-group">
-                                <div class="input-group-text">
-                                    <i class="fas fa-user"></i> 
-                                </div>
-                                <input formControlName="email" type="text" name="email" class="form-control" id="email"  required [(ngModel)]="email"  [ngClass]="{ 'is-invalid': checkForm && f['email'].errors }">
-                                @if (checkForm && f['email'].errors) {
-                                    <div class="invalid-feedback">
-                                      @if (f['email'].errors['required']) {
-                                      <div>Vui long nhập email</div>
-                                      }
-                                      @if (f['email'].errors['email']) {
-                                        <div>Email sai định dạng</div>
-                                      }
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-user"></i>
                                     </div>
-                                }
-                            </div>
-                            <div class="input-group pt-1">
-                                <div class="input-group-text">
-                                    <i class="fas fa-key"></i> 
-                                </div>
-                                <input formControlName="password" type="password" name="password" class="form-control" id="password" required [(ngModel)]="password" [ngClass]="{ 'is-invalid': checkForm && f['password'].errors }">
-                                @if (checkForm && f['password'].errors) {
+                                    <input formControlName="email" type="text" name="email" class="form-control"
+                                        id="email" required [(ngModel)]="email"
+                                        [ngClass]="{ 'is-invalid': checkForm && f['email'].errors }">
+                                    @if (checkForm && f['email'].errors) {
                                     <div class="invalid-feedback">
-                                      @if (f['password'].errors['required']) {
-                                      <div>Vui long nhập mật khẩu</div>
-                                      }
+                                        @if (f['email'].errors['required']) {
+                                        <div>Vui long nhập email</div>
+                                        }
+                                        @if (f['email'].errors['email']) {
+                                        <div>Email sai định dạng</div>
+                                        }
                                     </div>
                                     }
-                            </div>
+                                </div>
+                                <div class="input-group pt-1">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </div>
+                                    <input formControlName="password" type="password" name="password"
+                                        class="form-control" id="password" required [(ngModel)]="password"
+                                        [ngClass]="{ 'is-invalid': checkForm && f['password'].errors }">
+                                    @if (checkForm && f['password'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f['password'].errors['required']) {
+                                        <div>Vui long nhập mật khẩu</div>
+                                        }
+                                    </div>
+                                    }
+                                </div>
                             </div>
                             <div [hidden]="alertLogin" class="alert alert-danger pm-0">
                                 Đăng nhập không thàng công.
@@ -60,33 +64,22 @@
                                     <i class="fas fa-sign-in-alt"></i>
                                     Đăng nhập</button>
                             </div>
-                            
                         </form>
-                    }
+                        }
                     </div>
                 </div>
-                
-              <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu"> 
-                  <li *ngFor="let menu of filteredMenus">
-                      <a [routerLink]="menu.path" class="nav-link px-0 align-middle">
-                          <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">{{menu.text}}</span></a>
-                  </li>
-                <!-- <li>
-                      <a routerLink="/users" class="nav-link px-0 align-middle">
-                          <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Tra cứu thông tin</span></a>
-                  </li> -->
-                  <!-- <li>
-                      <a routerLink="/units" class="nav-link px-0 align-middle">
-                          <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Units</span> </a>
-                  </li> -->
-              </ul>
-          </div>
-      </div>
-      <div class="col-lg-10 col-md-9 col-sm-8 wd-82">
-        <div class="p-3">
-            <router-outlet></router-outlet> <!-- Component của Angular được render vào đây -->
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li *ngFor="let menu of filteredMenus">
+                        <a [routerLink]="menu.path" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">{{menu.text}}</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-8 wd-82">
+            <div class="p-3">
+                <router-outlet></router-outlet> 
+            </div>
         </div>
     </div>
-  </div>
 </div>
-
